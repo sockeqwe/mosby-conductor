@@ -1,0 +1,40 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:2.0.0'
+
+    // NOTE: Do not place your application dependencies here; they belong
+    // in the individual module build.gradle files
+  }
+}
+
+allprojects {
+  repositories {
+    jcenter()
+  }
+}
+
+ext {
+
+  compileSdkVersion = 23
+  buildToolsVersion = "23.0.3"
+  minSdk = 16
+  targetSdk = 23
+
+  mosby = '2.0.1'
+  conductor = '1.1.4'
+  supportLib = '23.3.0'
+  mockito = '1.10.19'
+  powermock='1.6.4'
+  junit = '4.12'
+  robolectric = '3.0'
+
+}
+
+task clean(type: Delete) {
+  delete rootProject.buildDir
+}
