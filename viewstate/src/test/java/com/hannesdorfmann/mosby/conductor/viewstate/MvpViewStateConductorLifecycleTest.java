@@ -15,6 +15,7 @@ import com.hannesdorfmann.mosby.mvp.lce.MvpLceView;
 import com.hannesdorfmann.mosby.mvp.viewstate.ViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.AbsParcelableLceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
+import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState;
 import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -180,8 +181,6 @@ public class MvpViewStateConductorLifecycleTest {
     ModelView mvpView = Mockito.mock(ModelView.class);
     Activity activity = Mockito.mock(Activity.class);
 
-
-
     ParcelableDataLceViewState<Model, ModelView> viewState =
         Mockito.spy(new ParcelableDataLceViewState<Model, ModelView>());
 
@@ -207,6 +206,39 @@ public class MvpViewStateConductorLifecycleTest {
     Mockito.verify(bundle, Mockito.times(1))
         .putParcelable(Mockito.eq(ParcelableDataLceViewState.KEY_BUNDLE_VIEW_STATE),
             Mockito.eq(viewState));
+  }
+
+  @Test public void dontSaveNotRestoreableViewState() {
+
+    MvpPresenter<ModelView> presenter = Mockito.mock(MvpPresenter.class);
+    Controller controller = PowerMockito.mock(Controller.class);
+    View view = Mockito.mock(View.class);
+    ModelView mvpView = Mockito.mock(ModelView.class);
+    Activity activity = Mockito.mock(Activity.class);
+
+    RetainingLceViewState<Model, ModelView> viewState =
+        Mockito.spy(new RetainingLceViewState<Model, ModelView>());
+
+    MvpViewStateConductorDelegateCallback<ModelView, MvpPresenter<ModelView>, ViewState<ModelView>>
+        callback = Mockito.spy(new SemiFunctionalCallback(viewState));
+
+    Mockito.when(callback.getPresenter()).thenReturn(presenter);
+    Mockito.when(callback.getMvpView()).thenReturn(mvpView);
+    Mockito.when(callback.createViewState())
+        .thenReturn(new ParcelableDataLceViewState<Model, ModelView>());
+
+    PowerMockito.when(controller.getActivity()).thenReturn(activity);
+    Mockito.when(activity.isChangingConfigurations()).thenReturn(false);
+
+    MvpViewStateConductorLifecycleListener<ModelView, MvpPresenter<ModelView>, ViewState<ModelView>>
+        lifecycleListener = new MvpViewStateConductorLifecycleListener<>(callback);
+
+    Bundle bundle = Mockito.mock(Bundle.class);
+
+    lifecycleListener.postDetach(controller, view);
+    lifecycleListener.onSaveViewState(controller, bundle);
+
+    Mockito.verifyZeroInteractions(bundle);
   }
 
   @Test public void nullPointerExceptionOnSaveViewState() {
@@ -258,7 +290,8 @@ public class MvpViewStateConductorLifecycleTest {
 
     public ViewState<ModelView> viewState;
 
-    public SemiFunctionalCallback(){}
+    public SemiFunctionalCallback() {
+    }
 
     public SemiFunctionalCallback(ViewState<ModelView> viewState) {
       this.viewState = viewState;
