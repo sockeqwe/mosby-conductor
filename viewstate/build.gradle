@@ -32,8 +32,6 @@ dependencies {
   testCompile "org.powermock:powermock-mockito-release-full:$powermock"
   testCompile "org.powermock:powermock-api-mockito:$powermock"
   testCompile "org.powermock:powermock-module-junit4:$powermock"
-  testCompile "org.powermock:powermock-module-junit4-rule-agent:$powermock"
-  testCompile "org.robolectric:robolectric:$robolectric"
 
   compile project(':mvp')
   compile "com.hannesdorfmann.mosby:viewstate:$mosby"

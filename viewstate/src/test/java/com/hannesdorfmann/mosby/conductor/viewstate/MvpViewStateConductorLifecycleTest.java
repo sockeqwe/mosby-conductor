@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.view.View;
 import com.bluelinelabs.conductor.Controller;
 import com.hannesdorfmann.mosby.conductor.viewstate.delegate.MvpViewStateConductorDelegateCallback;
@@ -12,27 +13,22 @@ import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceView;
 import com.hannesdorfmann.mosby.mvp.viewstate.ViewState;
+import com.hannesdorfmann.mosby.mvp.viewstate.lce.AbsParcelableLceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.ParcelableDataLceViewState;
 import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.modules.junit4.PowerMockRunnerDelegate;
-import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.annotation.Config;
 
 /**
  * @author Hannes Dorfmann
  */
 
-@RunWith(PowerMockRunner.class) @PowerMockRunnerDelegate(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
-@PowerMockIgnore({ "org.mockito.*", "org.robolectric.*", "android.*" })
-@PrepareForTest(Controller.class) public class MvpViewStateConductorLifecycleTest {
+@RunWith(PowerMockRunner.class) @PrepareForTest(Controller.class)
+public class MvpViewStateConductorLifecycleTest {
 
   @Test public void nullPointerOnCreateViewState() {
 
@@ -94,7 +90,7 @@ import org.robolectric.annotation.Config;
     ModelView mvpView = Mockito.mock(ModelView.class);
 
     MvpViewStateConductorDelegateCallback<ModelView, MvpPresenter<ModelView>, ViewState<ModelView>>
-        callback = Mockito.mock(SemiFunctionalCallback.class);
+        callback = Mockito.spy(SemiFunctionalCallback.class);
 
     ParcelableDataLceViewState<Model, MvpLceView<Model>> viewState =
         Mockito.spy(new ParcelableDataLceViewState<Model, MvpLceView<Model>>());
@@ -107,7 +103,9 @@ import org.robolectric.annotation.Config;
     MvpViewStateConductorLifecycleListener<ModelView, MvpPresenter<ModelView>, ViewState<ModelView>>
         lifecycleListener = new MvpViewStateConductorLifecycleListener<>(callback);
 
-    Bundle bundle = new Bundle();
+    Bundle bundle = Mockito.mock(Bundle.class);
+    Mockito.when(bundle.getParcelable(AbsParcelableLceViewState.KEY_BUNDLE_VIEW_STATE))
+        .thenReturn(viewState);
     viewState.saveInstanceState(bundle);
 
     lifecycleListener.onRestoreViewState(controller, bundle);
@@ -137,7 +135,7 @@ import org.robolectric.annotation.Config;
     MvpViewStateConductorLifecycleListener<ModelView, MvpPresenter<ModelView>, ViewState<ModelView>>
         lifecycleListener = new MvpViewStateConductorLifecycleListener<>(callback);
 
-    Bundle bundle = new Bundle(); // Bundle is empty
+    Bundle bundle = Mockito.mock(Bundle.class);
 
     lifecycleListener.onRestoreViewState(controller, bundle);
     lifecycleListener.preAttach(controller, view);
@@ -182,11 +180,13 @@ import org.robolectric.annotation.Config;
     ModelView mvpView = Mockito.mock(ModelView.class);
     Activity activity = Mockito.mock(Activity.class);
 
-    MvpViewStateConductorDelegateCallback<ModelView, MvpPresenter<ModelView>, ViewState<ModelView>>
-        callback = Mockito.mock(SemiFunctionalCallback.class);
 
-    ParcelableDataLceViewState<Model, MvpLceView<Model>> viewState =
-        Mockito.spy(new ParcelableDataLceViewState<Model, MvpLceView<Model>>());
+
+    ParcelableDataLceViewState<Model, ModelView> viewState =
+        Mockito.spy(new ParcelableDataLceViewState<Model, ModelView>());
+
+    MvpViewStateConductorDelegateCallback<ModelView, MvpPresenter<ModelView>, ViewState<ModelView>>
+        callback = Mockito.spy(new SemiFunctionalCallback(viewState));
 
     Mockito.when(callback.getPresenter()).thenReturn(presenter);
     Mockito.when(callback.getMvpView()).thenReturn(mvpView);
@@ -199,7 +199,7 @@ import org.robolectric.annotation.Config;
     MvpViewStateConductorLifecycleListener<ModelView, MvpPresenter<ModelView>, ViewState<ModelView>>
         lifecycleListener = new MvpViewStateConductorLifecycleListener<>(callback);
 
-    Bundle bundle = Mockito.spy(new Bundle());
+    Bundle bundle = Mockito.mock(Bundle.class);
 
     lifecycleListener.postDetach(controller, view);
     lifecycleListener.onSaveViewState(controller, bundle);
@@ -253,17 +253,59 @@ import org.robolectric.annotation.Config;
   interface ModelView extends MvpLceView<Model> {
   }
 
-  abstract static class SemiFunctionalCallback implements
+  static class SemiFunctionalCallback implements
       MvpViewStateConductorDelegateCallback<ModelView, MvpPresenter<ModelView>, ViewState<ModelView>> {
 
     public ViewState<ModelView> viewState;
 
-    @Override final public ViewState<ModelView> getViewState() {
+    public SemiFunctionalCallback(){}
+
+    public SemiFunctionalCallback(ViewState<ModelView> viewState) {
+      this.viewState = viewState;
+    }
+
+    @Override public ViewState<ModelView> getViewState() {
       return viewState;
     }
 
-    @Override final public void setViewState(ViewState<ModelView> viewState) {
+    @Override public void setViewState(ViewState<ModelView> viewState) {
       this.viewState = viewState;
+    }
+
+    @NonNull @Override public ViewState<ModelView> createViewState() {
+      return null;
+    }
+
+    @Override public void setRestoringViewState(boolean restoringViewState) {
+
+    }
+
+    @Override public boolean isRestoringViewState() {
+      return false;
+    }
+
+    @Override public void onViewStateInstanceRestored(boolean instanceStateRetained) {
+
+    }
+
+    @Override public void onNewViewStateInstance() {
+
+    }
+
+    @NonNull @Override public MvpPresenter<ModelView> createPresenter() {
+      return null;
+    }
+
+    @NonNull @Override public MvpPresenter<ModelView> getPresenter() {
+      return null;
+    }
+
+    @Override public void setPresenter(@NonNull MvpPresenter<ModelView> presenter) {
+
+    }
+
+    @NonNull @Override public ModelView getMvpView() {
+      return null;
     }
   }
 }
