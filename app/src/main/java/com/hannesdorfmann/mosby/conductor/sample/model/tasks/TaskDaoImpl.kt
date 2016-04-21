@@ -1,7 +1,6 @@
 package com.hannesdorfmann.mosby.conductor.sample.model.tasks
 
 import android.database.sqlite.SQLiteDatabase
-import com.hannesdorfmann.mosby.conductor.sample.model.TaskMapper
 import com.hannesdorfmann.sqlbrite.dao.Dao
 import rx.Observable
 
