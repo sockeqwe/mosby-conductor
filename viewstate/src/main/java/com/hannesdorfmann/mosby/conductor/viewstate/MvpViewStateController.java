@@ -8,7 +8,9 @@ import com.hannesdorfmann.mosby.mvp.conductor.MvpController;
 import com.hannesdorfmann.mosby.mvp.viewstate.ViewState;
 
 /**
+ *
  * @author Hannes Dorfmann
+ * @since 1.0
  */
 public abstract class MvpViewStateController<V extends MvpView, P extends MvpPresenter<V>, VS extends ViewState<V>>
     extends MvpController<V, P> implements MvpViewStateConductorDelegateCallback<V, P, VS> {

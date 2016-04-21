@@ -81,6 +81,7 @@ public class MvpViewStateConductorLifecycleTest {
     Mockito.verify(callback, Mockito.times(1)).getViewState();
     Mockito.verify(callback, Mockito.times(1)).createViewState();
     Mockito.verify(callback, Mockito.times(1)).setViewState(viewState);
+    Mockito.verify(callback, Mockito.times(1)).onNewViewStateInstance();
   }
 
   @Test public void restoreViewStateFromBundle() {

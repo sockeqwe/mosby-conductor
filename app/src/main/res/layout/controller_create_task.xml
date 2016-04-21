@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    android:orientation="vertical"
+    >
+
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/create_task_toolbar_height"
+      android:background="@color/colorPrimary"
+      android:translationZ="4dp"
+      app:navigationIcon="@drawable/ic_arrow_back"
+      app:theme="@style/AppTheme"
+      >
+
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/create_task_title"
+        android:maxLines="1"
+        />
+
+  </android.support.v7.widget.Toolbar>
+
+  <android.support.v4.widget.NestedScrollView
+      android:id="@+id/scrollView"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:background="#FFFFFF"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+      <EditText
+          android:id="@+id/description"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/activity_vertical_margin"
+          android:layout_marginRight="@dimen/activity_vertical_margin"
+          android:layout_marginTop="@dimen/activity_horizontal_margin"
+          android:hint="@string/create_task_description"
+          />
+    </LinearLayout>
+
+  </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

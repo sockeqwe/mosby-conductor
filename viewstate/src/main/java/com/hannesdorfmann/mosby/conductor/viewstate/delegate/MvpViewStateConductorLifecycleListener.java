@@ -55,6 +55,7 @@ public class MvpViewStateConductorLifecycleListener<V extends MvpView, P extends
             "ViewState from createViewState() is null in " + viewStateCallback);
       }
       viewStateCallback.setViewState(viewState);
+      viewStateCallback.onNewViewStateInstance();
     } else {
 
       viewStateCallback.setRestoringViewState(true);

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/task_item_padding_top_bottom"
+    android:paddingTop="@dimen/task_item_padding_top_bottom"
+    android:paddingLeft="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+  <CheckBox
+      android:id="@+id/checkbox"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="@dimen/task_checkbox_title_space"
+      android:layout_gravity="center"
+      />
+
+  <TextView
+      android:id="@+id/title"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:layout_gravity="center"
+      tools:text="Hello World Task"
+      android:textSize="@dimen/task_item_textsize"
+      />
+
+</LinearLayout>

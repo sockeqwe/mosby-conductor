@@ -1,3 +1,11 @@
 <resources>
-  <string name="app_name">sample</string>
+  <string name="app_name">TODO</string>
+
+  <string name="tasks_open">Open</string>
+  <string name="tasks_done">Done</string>
+
+  <string name="error">An unexpected error has occurred</string>
+  <string name="create_task_title">Title</string>
+  <string name="create_task_description">Description</string>
+
 </resources>

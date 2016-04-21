@@ -1,10 +1,30 @@
+
+buildscript {
+  ext.kotlin_version = '1.0.1-2'
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+  }
+}
+repositories {
+  mavenCentral()
+  maven {
+    url "https://oss.sonatype.org/content/repositories/snapshots"
+  }
+}
+
+
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
 
   compileSdkVersion rootProject.ext.compileSdkVersion
   buildToolsVersion rootProject.ext.buildToolsVersion
 
+  compileOptions.incremental = false
 
   defaultConfig {
     applicationId "com.hannesdorfmann.mosby.conductor.sample"
@@ -19,14 +39,40 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+  sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+  }
 }
+
+kapt {
+  generateStubs = true
+}
+
+def sqlbrite = '0.6.1'
+def dagger = '2.2'
+def adapterDelegates = '2.0.0'
 
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
-  testCompile 'junit:junit:4.12'
 
+  compile project(':viewstate')
 
   compile "com.android.support:appcompat-v7:$supportLib"
+  compile "com.android.support:recyclerview-v7:$supportLib"
+  compile "com.android.support:design:$supportLib"
 
-  //compile project(':mvp')
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+  compile "com.hannesdorfmann.sqlbrite:dao:$sqlbrite"
+  compile "com.hannesdorfmann.sqlbrite:annotations:$sqlbrite"
+  kapt "com.hannesdorfmann.sqlbrite:object-mapper:$sqlbrite"
+
+  compile "com.google.dagger:dagger:$dagger"
+  kapt "com.google.dagger:dagger-compiler:$dagger"
+
+  compile "com.hannesdorfmann:adapterdelegates2:$adapterDelegates"
+  compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
+
+  compile 'io.reactivex:rxandroid:1.1.0'
+  compile 'io.reactivex:rxjava:1.1.3'
 }
+
