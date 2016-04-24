@@ -21,8 +21,12 @@ class ContactsPickerPresenter @Inject constructor(private val contacsLoader: Con
     view?.showLoading(false)
 
     subscription = contacsLoader.loadContacts()
-        .observeOn(Schedulers.io())
-        .subscribeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .map {
+          Thread.sleep(2000)
+          it
+        }
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe (
             { view?.setData(it) }, // onNext()
             { view?.showError(it, false) }, // onError()
@@ -32,9 +36,11 @@ class ContactsPickerPresenter @Inject constructor(private val contacsLoader: Con
 
   override fun detachView(retainInstance: Boolean) {
     super.detachView(retainInstance)
+    /*
     if (!retainInstance) {
       subscription.unsubscribe()
     }
+    */
   }
 
 }

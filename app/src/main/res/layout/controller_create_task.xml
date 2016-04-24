@@ -26,6 +26,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/create_task_title"
         android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
         />
 
   </android.support.v7.widget.Toolbar>
@@ -39,19 +42,67 @@
       >
 
     <LinearLayout
+        android:id="@+id/scrollViewContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_vertical_margin"
+        android:clipToPadding="false"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
         >
 
       <EditText
           android:id="@+id/description"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/activity_vertical_margin"
-          android:layout_marginRight="@dimen/activity_vertical_margin"
           android:layout_marginTop="@dimen/activity_horizontal_margin"
           android:hint="@string/create_task_description"
           />
+
+      <LinearLayout
+          android:id="@+id/addPersonHeader"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/activity_horizontal_margin"
+          android:orientation="horizontal"
+          >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:text="@string/persons"
+            />
+
+        <ImageButton
+            android:id="@+id/addPerson"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_add_circle"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            />
+
+      </LinearLayout>
+
+      <FrameLayout
+          android:id="@+id/personPickerContainer"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:clipToPadding="false"
+          />
+
+
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/personRecyclerView"
+          android:layout_width="match_parent"
+          android:layout_height="160dp"
+          android:background="@color/colorAccent"
+          />
+
     </LinearLayout>
 
   </android.support.v4.widget.NestedScrollView>

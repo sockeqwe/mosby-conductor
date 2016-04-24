@@ -124,7 +124,7 @@ import com.hannesdorfmann.mosby.conductor.sample.R;
       contentViewAnim.setInterpolator(new AccelerateInterpolator());
 
       Animator circular = ViewAnimationUtils.createCircularReveal(from, mCx, mCy, radius, 0);
-      //circular.setStartDelay(200);
+      circular.setStartDelay(200);
 
       as.playSequentially(contentViewAnim, circular);
 

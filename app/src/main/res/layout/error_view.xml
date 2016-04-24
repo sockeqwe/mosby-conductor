@@ -14,6 +14,7 @@
       android:textColor="#656565"
       android:text="An error has occurred! click here to retry"
       android:gravity="center"
+      android:visibility="gone"
       />
 
 </merge>

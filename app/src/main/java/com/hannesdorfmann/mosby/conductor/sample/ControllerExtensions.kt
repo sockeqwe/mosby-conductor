@@ -25,3 +25,4 @@ val Controller.daggerComponent: ControllerComponent
 val Controller.navigator: Navigator
   get() = daggerComponent.navigator()
 
+

@@ -7,5 +7,6 @@
   <string name="error">An unexpected error has occurred</string>
   <string name="create_task_title">Title</string>
   <string name="create_task_description">Description</string>
+  <string name="persons">Persons</string>
 
 </resources>

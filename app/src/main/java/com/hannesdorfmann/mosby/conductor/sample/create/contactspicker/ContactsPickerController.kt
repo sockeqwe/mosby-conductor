@@ -1,10 +1,18 @@
 package com.hannesdorfmann.mosby.conductor.sample.create.contactspicker
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bluelinelabs.conductor.ControllerChangeHandler
+import com.bluelinelabs.conductor.ControllerTransaction
 import com.hannesdorfmann.adapterdelegates2.AdapterDelegatesManager
 import com.hannesdorfmann.adapterdelegates2.ListDelegationAdapter
 import com.hannesdorfmann.mosby.conductor.sample.R
@@ -17,7 +25,9 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState
  * A [ContactsPickerView]
  * @author Hannes Dorfmann
  */
-class ContactsPickerController : MvpLceViewStateController<RecyclerView, List<Contact>, ContactsPickerView, ContactsPickerPresenter>() {
+class ContactsPickerController : ContactsPickerView, MvpLceViewStateController<CardView, List<Contact>, ContactsPickerView, ContactsPickerPresenter>() {
+
+  private val permissionRequestCode = 1234
 
   private lateinit var adapter: ListDelegationAdapter<List<Contact>>
 
@@ -25,7 +35,7 @@ class ContactsPickerController : MvpLceViewStateController<RecyclerView, List<Co
 
     val view = inflater.inflate(R.layout.controller_contacts_picker, container, false)
 
-    val recyclerView = view.findViewById(R.id.contentView) as RecyclerView
+    val recyclerView = view.findViewById(R.id.recyclerView) as RecyclerView
     recyclerView.layoutManager = LinearLayoutManager(activity)
 
 
@@ -34,6 +44,7 @@ class ContactsPickerController : MvpLceViewStateController<RecyclerView, List<Co
         }))
 
     adapter = ListDelegationAdapter(manager)
+    recyclerView.adapter = adapter
 
     return view
   }
@@ -53,4 +64,55 @@ class ContactsPickerController : MvpLceViewStateController<RecyclerView, List<Co
       activity.getString(R.string.error)
 
   override fun createPresenter() = daggerComponent.contactsPickerPresenter()
+
+  override fun onNewViewStateInstance() {
+    if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(activity,
+        Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+      requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), permissionRequestCode)
+    } else {
+      super.onNewViewStateInstance()
+    }
+  }
+
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+      grantResults: IntArray) {
+    if (requestCode == permissionRequestCode && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+      super.onNewViewStateInstance()
+    } else {
+      showError(RuntimeException("Permission not granted"), false)
+    }
+  }
+
+  override fun onChangeStarted(changeHandler: ControllerChangeHandler,
+      changeType: ControllerTransaction.ControllerChangeType) {
+
+    if (changeType == ControllerTransaction.ControllerChangeType.POP_EXIT){
+      TransitionManager.beginDelayedTransition(activity.findViewById(R.id.scrollViewContainer) as ViewGroup)
+    }
+
+  }
+
+
+  override fun animateContentViewIn() {
+    TransitionManager.beginDelayedTransition(view.parent.parent as ViewGroup)
+    loadingView.visibility = View.GONE
+    errorView.visibility = View.GONE
+    contentView.visibility = View.VISIBLE
+  }
+
+  override fun animateErrorViewIn() {
+    TransitionManager.beginDelayedTransition(view.parent.parent as ViewGroup)
+    loadingView.visibility = View.GONE
+    contentView.visibility = View.GONE
+    errorView.visibility = View.VISIBLE
+  }
+
+  override fun animateLoadingViewIn() {
+    TransitionManager.beginDelayedTransition(view.parent.parent as ViewGroup)
+    contentView.visibility = View.GONE
+    errorView.visibility = View.GONE
+    loadingView.visibility = View.VISIBLE
+  }
+
+
 }
