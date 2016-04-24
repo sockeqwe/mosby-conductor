@@ -48,7 +48,6 @@
         android:paddingLeft="@dimen/activity_vertical_margin"
         android:paddingRight="@dimen/activity_vertical_margin"
         android:clipToPadding="false"
-        android:animateLayoutChanges="true"
         android:orientation="vertical"
         >
 

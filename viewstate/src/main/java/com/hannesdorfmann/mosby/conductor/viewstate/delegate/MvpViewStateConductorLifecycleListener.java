@@ -47,6 +47,7 @@ public class MvpViewStateConductorLifecycleListener<V extends MvpView, P extends
         ((MvpViewStateConductorDelegateCallback<V, P, VS>) callback);
 
     // Create viewstate instance if needed
+
     VS viewState = viewStateCallback.getViewState();
     if (viewState == null) {
       viewState = viewStateCallback.createViewState();
@@ -59,11 +60,12 @@ public class MvpViewStateConductorLifecycleListener<V extends MvpView, P extends
     } else {
 
       viewStateCallback.setRestoringViewState(true);
-      viewState.apply(callback.getMvpView(), retainingViewState);
+    //  viewState.apply(callback.getMvpView(), retainingViewState);
       viewStateCallback.setRestoringViewState(false);
 
       viewStateCallback.onViewStateInstanceRestored(retainingViewState);
     }
+
   }
 
   @Override public void postDetach(@NonNull Controller controller, @NonNull View view) {
