@@ -6,7 +6,7 @@ This plugin for using [Mosby](https://github.com/sockeqwe/mosby) with [Conductor
 ```groovy
 dependencies {
     compile 'com.hannesdorfmann.mosby:mvp-conductor:0.7.0'
-    compile 'com.hannesdorfmann.mosby:viewstate.conductor:0.7.0' // optional viewstate feature
+    compile 'com.hannesdorfmann.mosby:viewstate-conductor:0.7.0' // optional viewstate feature
 }
 ```
 
@@ -36,6 +36,9 @@ class MyController extends Controller
 
 If you need ViewState support simply use `MvpViewStateConductorLifecycleListener` and `MvpViewStateConductorDelegateCallback`.
 
+## Lifecycle
+Presenter will be created right after `Controller.onCreateView()` but before `Controller.onAttach()`. So in `onAttach()` presenter is ready to be used.
+Presenter will be destroyed in `Controller.onDestroyView()` except screen orientation changes where the Presenter will not be destroyed and recreated but rather the view will only be detached (`presenter.detachView(true)`) and new view will be reattached.
 
 ## Example
 This repository contains a simple TO DO app, which is not implemented yet, because I'm waiting for some Conductor to implement some changes [#27](https://github.com/bluelinelabs/Conductor/issues/27).
