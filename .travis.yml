@@ -18,9 +18,8 @@ jdk:
 env:
   global:
     - MALLOC_ARENA_MAX=2
-    - secure: "r5TaIZkS1ErM6OFM1nhFuoQ68OEQA29jw/FUj6OGu1IkNE8Z2kTDuvRYyqitilU2Zy4DPA0bnSENone/YF+qeDi//o3rM77SuFr0ywYLoaCJAjLcWBCjyftFsl7gZRIhfIiB1WhYq/JHkI4cX0iibHZwoA95GAloZPWH3tQBCIw="
-    - secure: "di8dPmgdotlH4YuuNUgR1/wRA6PE07gJjD8Z23LJ9SQHIP9T9yb2qh6PwHgavu7uyMydaqucq9AYCsvnCpnsxDGg/f0TsipLoVcMzq6MZp1EkW1iEWYahQCg5CchtgOODDEL36DVjy08dVLTlmlIMfDIZzkXJP6H+BDKgnxim5s="
-
+    - secure: "SgEtbzawZSAUCPUmJeBMs4s+7LkfAspJkat3P8NKkEkMBLSR7Wd/pwhwh70oGqJ4Jlf9SIcATyW2bCr90MOCQndaDzMwDwKyZ0u8D7bF+PvvT6CTRLPOlSOUGjSA1i9IjOztBxf7foEvU1PmwooLVTwlO7+1ZXishbF9sEUVQ2qzs8Te7sTEUeJI1JrUoy85zTHFJtnp0cXv35ux17See76XMMcmwW6ZVY0ZsZMIFHLugEmAGrSJU1WRz8d/MQBIZBftgTrX3J2B2+Cf2eDpZM07l6qhZFCwOXuGP2DAqMC/+ryakKf1Ja2CShLyaE0eV7yv0HAwocrXDqGv0T8+ZBAenD3L1xsptLK+XFECtAGAVSuKruvmUdy7AQOm1s8/LdBPkIeyyJdkicSTDzAEnB/Zt6bcCrgoJ5udHbdztztysBgo7XkP6z8Qj/6Q4P2G0fJKNHvZN64CICIZnbMKwery4KwfxpxCasbDgrVNkKeUGzGumLlNwnJ6xqmhb4lGUSUi3+hgKWiye2605rAhPar8Ss/KZUtnv7ZA0y4Wv3oAE7/gAqZ0//dEcZVTylnKl/YWfWVwYVvFQb1MqSc7fQnPkV87ownJbqnOijb2U0X9QY6jid1j3aQRm8EDxuUJsBKALFZL1aJED9nrRqNnYXXH0QgDV64T8p9EbigqgGE="
+    - secure: "QKdk17ieitiGIquabnLkeRE69CtjXFuIz8yArNrKslRkMvQ5D6Uz5kwDubMZ5aSey0r2gTOzudxhcad/f4odPe16I/S3rZdtqyf7SdtiByvCWY6efsh3NtHh/lRyrZkfodET59rIsSxuTpfCtpHDTe0kLXMmigFXEgFOmLQSrIdtxmhg9cCCoCEqv/VQNc3EHg/DllZO5uZauqnI/W9zx3wzP26wA7lITS9oqgJvt2gBJ+SOH6mx5BkcqlKqTzM7p65efqGIez0TWR/ObOVJukNZpAp5qkwFI3iqgfvFLPwjxEeJisN1GEmC8vGj+GdSBO/NOf9h6WKj1TvyYnVJ9MTv0BpA2zF75KYLUOzypBKWMxfAo7NaCZWwIx9/QabRFsv4I8U0Jqj8tL5TLG8IrcVWgzF/7p+C2mCvkfSWp5WV/HgDgcmc09I1KDWYTw9sE+zhCWKanJpp8dKKaDC2fNAM1NzZoe8AneOPkYumO2sxj13eXYLT/p+QWNJVIp+cyxjYlUItMiEO0KiQiBT9/oYKIxiKEppQVl/Le7TUjRvAY1ntqHkVCys1UPL/4Cl8m7qaThS6t5cgHDcO+Sq/fyarKf/JvV0ry07BnxIEUwn7t3j92D0vhO0PoiNvTyWkCwttRCn/MtnUC02nf4F7Fx9d/WmtFqMJGe70/zp/8FI="
 branches:
   except:
     - gh-pages
@@ -32,8 +31,8 @@ sudo: required
 
 script: gradle build --stacktrace
 
-# after_success:
-#  - .buildscript/deploy_snapshot.sh
+after_success:
+  - .buildscript/deploy_snapshot.sh
 
 cache:
   directories:
