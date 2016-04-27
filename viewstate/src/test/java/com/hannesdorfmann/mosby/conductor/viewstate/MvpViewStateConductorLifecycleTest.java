@@ -76,7 +76,9 @@ public class MvpViewStateConductorLifecycleTest {
     MvpViewStateConductorLifecycleListener<MvpView, MvpPresenter<MvpView>, ViewState<MvpView>>
         lifecycleListener = new MvpViewStateConductorLifecycleListener<>(callback);
 
+    lifecycleListener.postCreateView(controller, view);
     lifecycleListener.preAttach(controller, view);
+
 
     Mockito.verify(callback, Mockito.times(1)).getViewState();
     Mockito.verify(callback, Mockito.times(1)).createViewState();
@@ -97,10 +99,13 @@ public class MvpViewStateConductorLifecycleTest {
     ParcelableDataLceViewState<Model, MvpLceView<Model>> viewState =
         Mockito.spy(new ParcelableDataLceViewState<Model, MvpLceView<Model>>());
 
+
     Mockito.when(callback.getPresenter()).thenReturn(presenter);
     Mockito.when(callback.getMvpView()).thenReturn(mvpView);
     Mockito.when(callback.createViewState())
         .thenReturn(new ParcelableDataLceViewState<Model, ModelView>());
+
+
 
     MvpViewStateConductorLifecycleListener<ModelView, MvpPresenter<ModelView>, ViewState<ModelView>>
         lifecycleListener = new MvpViewStateConductorLifecycleListener<>(callback);
@@ -110,10 +115,14 @@ public class MvpViewStateConductorLifecycleTest {
         .thenReturn(viewState);
     viewState.saveInstanceState(bundle);
 
+    lifecycleListener.postCreateView(controller, view);
     lifecycleListener.onRestoreViewState(controller, bundle);
     lifecycleListener.preAttach(controller, view);
 
+    Mockito.verify(callback, Mockito.times(1)).setRestoringViewState(true);
     Mockito.verify(viewState, Mockito.times(1)).apply(Mockito.eq(mvpView), Mockito.eq(false));
+    Mockito.verify(callback, Mockito.times(1)).setRestoringViewState(false);
+    Mockito.verify(callback, Mockito.times(1)).onViewStateInstanceRestored(false);
   }
 
   @Test public void dontRestoreViewStateBecauseFirstTimeControllerStarts() {
@@ -139,12 +148,13 @@ public class MvpViewStateConductorLifecycleTest {
 
     Bundle bundle = Mockito.mock(Bundle.class);
 
-    lifecycleListener.onRestoreViewState(controller, bundle);
+
+    lifecycleListener.postCreateView(controller, view);
+    // lifecycleListener.onRestoreViewState(controller, bundle); Not called because first time starts
     lifecycleListener.preAttach(controller, view);
 
     Mockito.verify(viewState, Mockito.never()).apply(Mockito.eq(mvpView), Mockito.anyBoolean());
-    // Called 2 times, once in restore, once in attach --> TODO optimized
-    Mockito.verify(callback, Mockito.atLeastOnce()).createViewState();
+    Mockito.verify(callback, Mockito.times(1)).createViewState();
     Mockito.verify(callback, Mockito.times(1)).setViewState(Mockito.any(ViewState.class));
   }
 
@@ -167,8 +177,9 @@ public class MvpViewStateConductorLifecycleTest {
 
     Bundle bundle = new Bundle();
 
+
+    lifecycleListener.postCreateView(controller, view);
     lifecycleListener.onRestoreViewState(controller, bundle);
-    lifecycleListener.preAttach(controller, view);
 
     Mockito.verify(callback, Mockito.never()).createViewState();
     Mockito.verify(viewState, Mockito.times(1)).apply(Mockito.eq(mvpView), Mockito.eq(true));
@@ -201,8 +212,9 @@ public class MvpViewStateConductorLifecycleTest {
 
     Bundle bundle = Mockito.mock(Bundle.class);
 
-    lifecycleListener.postDetach(controller, view);
     lifecycleListener.onSaveViewState(controller, bundle);
+    lifecycleListener.preDestroyView(controller, view);
+
 
     Mockito.verify(bundle, Mockito.times(1))
         .putParcelable(Mockito.eq(ParcelableDataLceViewState.KEY_BUNDLE_VIEW_STATE),
@@ -236,8 +248,8 @@ public class MvpViewStateConductorLifecycleTest {
 
     Bundle bundle = Mockito.mock(Bundle.class);
 
-    lifecycleListener.postDetach(controller, view);
     lifecycleListener.onSaveViewState(controller, bundle);
+    lifecycleListener.preDestroyView(controller, view);
 
     Mockito.verifyZeroInteractions(bundle);
   }

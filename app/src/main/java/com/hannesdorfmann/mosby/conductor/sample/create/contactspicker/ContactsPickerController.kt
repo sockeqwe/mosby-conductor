@@ -11,8 +11,6 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bluelinelabs.conductor.ControllerChangeHandler
-import com.bluelinelabs.conductor.ControllerTransaction
 import com.hannesdorfmann.adapterdelegates2.AdapterDelegatesManager
 import com.hannesdorfmann.adapterdelegates2.ListDelegationAdapter
 import com.hannesdorfmann.mosby.conductor.sample.R
@@ -83,15 +81,6 @@ class ContactsPickerController : ContactsPickerView, MvpLceViewStateController<C
     }
   }
 
-  override fun onChangeStarted(changeHandler: ControllerChangeHandler,
-      changeType: ControllerTransaction.ControllerChangeType) {
-
-    if (changeType == ControllerTransaction.ControllerChangeType.POP_EXIT){
-      TransitionManager.beginDelayedTransition(activity.findViewById(R.id.scrollViewContainer) as ViewGroup)
-    }
-
-  }
-
 
   override fun animateContentViewIn() {
     TransitionManager.beginDelayedTransition(view.parent.parent as ViewGroup)
@@ -113,6 +102,4 @@ class ContactsPickerController : ContactsPickerView, MvpLceViewStateController<C
     errorView.visibility = View.GONE
     loadingView.visibility = View.VISIBLE
   }
-
-
 }

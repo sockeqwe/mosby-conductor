@@ -33,46 +33,28 @@ import com.hannesdorfmann.mosby.mvp.viewstate.ViewState;
 public class MvpViewStateConductorLifecycleListener<V extends MvpView, P extends MvpPresenter<V>, VS extends ViewState<V>>
     extends MvpConductorLifecycleListener<V, P> {
 
-  private boolean retainingViewState = false;
-
   public MvpViewStateConductorLifecycleListener(
       MvpViewStateConductorDelegateCallback<V, P, VS> callback) {
     super(callback);
   }
 
   @Override public void preAttach(@NonNull Controller controller, @NonNull View view) {
-    super.preAttach(controller, view);
-
-    MvpViewStateConductorDelegateCallback<V, P, VS> viewStateCallback =
+    MvpViewStateConductorDelegateCallback<V, P, VS> vsCallback =
         ((MvpViewStateConductorDelegateCallback<V, P, VS>) callback);
 
-    // Create viewstate instance if needed
-
-    VS viewState = viewStateCallback.getViewState();
-    if (viewState == null) {
-      viewState = viewStateCallback.createViewState();
+    if (vsCallback.getViewState() == null) {
+      // Creating view for the first time, so onRestoreViewState() never has been called
+      // Create ViewState
+      VS viewState = vsCallback.createViewState();
       if (viewState == null) {
-        throw new NullPointerException(
-            "ViewState from createViewState() is null in " + viewStateCallback);
+        throw new NullPointerException("ViewState from createViewState() is null in " + vsCallback);
       }
-      viewStateCallback.setViewState(viewState);
-      viewStateCallback.onNewViewStateInstance();
-    } else {
 
-      viewStateCallback.setRestoringViewState(true);
-    //  viewState.apply(callback.getMvpView(), retainingViewState);
-      viewStateCallback.setRestoringViewState(false);
-
-      viewStateCallback.onViewStateInstanceRestored(retainingViewState);
+      vsCallback.setViewState(viewState);
+      vsCallback.onNewViewStateInstance();
     }
 
-  }
-
-  @Override public void postDetach(@NonNull Controller controller, @NonNull View view) {
-    super.postDetach(controller, view);
-
-    // Reset for next time controller gets instantiated after screen orientation changes
-    retainingViewState = false;
+    super.preAttach(controller, view);
   }
 
   @Override public void onSaveViewState(@NonNull Controller controller, @NonNull Bundle outState) {
@@ -99,21 +81,35 @@ public class MvpViewStateConductorLifecycleListener<V extends MvpView, P extends
     VS viewState = vsCallback.getViewState();
 
     if (viewState == null) {
-      retainingViewState = false;
 
-      // Try to restore from bundle.
       viewState = vsCallback.createViewState();
+      if (viewState == null) {
+        throw new NullPointerException("ViewState from createViewState() is null in " + vsCallback);
+      }
+
       if (viewState instanceof RestorableViewState) {
+
+        // Try to restore from bundle.
         VS restoredViewState =
             (VS) ((RestorableViewState) viewState).restoreInstanceState(savedViewState);
 
         if (restoredViewState != null) {
+          // Restored from bundle
           vsCallback.setViewState(restoredViewState);
+
+          vsCallback.setRestoringViewState(true);
+          restoredViewState.apply(callback.getMvpView(), false);
+          vsCallback.setRestoringViewState(false);
+
+          vsCallback.onViewStateInstanceRestored(false);
         }
       }
     } else {
       // ViewState in memory retained
-      retainingViewState = true;
+      vsCallback.setRestoringViewState(true);
+      viewState.apply(callback.getMvpView(), true);
+      vsCallback.setRestoringViewState(false);
+      vsCallback.onViewStateInstanceRestored(true);
     }
   }
 }

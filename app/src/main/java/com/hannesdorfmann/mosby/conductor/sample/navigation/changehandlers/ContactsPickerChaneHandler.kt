@@ -17,43 +17,34 @@ class ContactsPickerChaneHandler : ControllerChangeHandler() {
   override fun performChange(container: ViewGroup, from: View?, to: View?, isPush: Boolean,
       changeListener: ControllerChangeCompletedListener) {
 
+
     val transition = AutoTransition()
 
     transition.addListener(object : Transition.TransitionListener {
+      override fun onTransitionStart(transition: Transition) {
+      }
 
-      override fun onTransitionEnd(transition: Transition?) {
+      override fun onTransitionEnd(transition: Transition) {
         changeListener.onChangeCompleted()
       }
 
-      override fun onTransitionResume(transition: Transition?) {
-      }
-
-      override fun onTransitionPause(transition: Transition?) {
-      }
-
-      override fun onTransitionCancel(transition: Transition?) {
+      override fun onTransitionCancel(transition: Transition) {
         changeListener.onChangeCompleted()
       }
 
-      override fun onTransitionStart(transition: Transition?) {
+      override fun onTransitionPause(transition: Transition) {
+      }
+
+      override fun onTransitionResume(transition: Transition) {
       }
     })
 
-    // Change Views
-    if (isPush) {
-      if (to != null) {
-        val parentContainer = to.parent as ViewGroup
-        TransitionManager.beginDelayedTransition(parentContainer.parent as ViewGroup, transition)
-        parentContainer.visibility = View.VISIBLE
-      }
-
-    } else {
-      if (from != null) {
-        val parentContainer = from.parent as ViewGroup
-        TransitionManager.beginDelayedTransition(parentContainer.parent as ViewGroup, transition)
-        parentContainer.visibility = View.GONE
-      }
+    TransitionManager.beginDelayedTransition(container.parent as ViewGroup, transition)
+    if (from != null) {
+      container.removeView(from)
     }
-
+    if (to != null) {
+      container.addView(to)
+    }
   }
 }

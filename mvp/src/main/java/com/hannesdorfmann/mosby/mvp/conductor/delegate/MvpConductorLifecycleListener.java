@@ -42,7 +42,8 @@ public class MvpConductorLifecycleListener<V extends MvpView, P extends MvpPrese
     return callback;
   }
 
-  @Override public void preAttach(@NonNull Controller controller, @NonNull View view) {
+
+  @Override public void postCreateView(@NonNull Controller controller, @NonNull View view) {
 
     MvpConductorDelegateCallback<V, P> callback = getCallback();
 
@@ -63,7 +64,7 @@ public class MvpConductorLifecycleListener<V extends MvpView, P extends MvpPrese
     presenter.attachView(mvpView);
   }
 
-  @Override public void postDetach(@NonNull Controller controller, @NonNull View view) {
+  @Override public void preDestroyView(@NonNull Controller controller, @NonNull View view) {
     P presenter = getCallback().getPresenter();
     if (presenter == null) {
       throw new NullPointerException(

@@ -36,7 +36,7 @@ public class MvpConductorLifecycleListenerTest {
     MvpConductorLifecycleListener<MvpView, MvpPresenter<MvpView>> lifecycleListener =
         new MvpConductorLifecycleListener<>(callback);
 
-    lifecycleListener.preAttach(controller, view);
+    lifecycleListener.postCreateView(controller, view);
 
     Mockito.verify(callback, Mockito.times(1)).getPresenter();
     Mockito.verify(callback, Mockito.times(1)).createPresenter();
@@ -59,7 +59,7 @@ public class MvpConductorLifecycleListenerTest {
         new MvpConductorLifecycleListener<>(callback);
 
     try {
-      lifecycleListener.preAttach(controller, view);
+      lifecycleListener.postCreateView(controller, view);
       Assert.fail("NullpointerException expected");
     } catch (NullPointerException e) {
       Assert.assertEquals(e.getMessage(),
@@ -83,7 +83,7 @@ public class MvpConductorLifecycleListenerTest {
         new MvpConductorLifecycleListener<>(callback);
 
     try {
-      lifecycleListener.preAttach(controller, view);
+      lifecycleListener.postCreateView(controller, view);
       Assert.fail("NullpointerException expected");
     } catch (NullPointerException e) {
       Assert.assertEquals(e.getMessage(),
@@ -105,7 +105,7 @@ public class MvpConductorLifecycleListenerTest {
     Mockito.when(callback.getPresenter()).thenReturn(presenter);
     Mockito.when(callback.getMvpView()).thenReturn(mvpView);
 
-    lifecycleListener.preAttach(controller, view);
+    lifecycleListener.postCreateView(controller, view);
 
     Mockito.verify(callback, Mockito.times(1)).getPresenter();
     Mockito.verify(callback, Mockito.never()).createPresenter();
@@ -131,13 +131,13 @@ public class MvpConductorLifecycleListenerTest {
     MvpConductorLifecycleListener<MvpView, MvpPresenter<MvpView>> lifecycleListener =
         new MvpConductorLifecycleListener<>(callback);
 
-    lifecycleListener.preAttach(controller, view);
+    lifecycleListener.postCreateView(controller, view);
 
     // Attach
     Mockito.verify(presenter, Mockito.times(1)).attachView(mvpView);
 
     // Detach
-    lifecycleListener.postDetach(controller, view);
+    lifecycleListener.preDestroyView(controller, view);
     Mockito.verify(presenter, Mockito.times(1)).detachView(false);
   }
 
@@ -160,18 +160,18 @@ public class MvpConductorLifecycleListenerTest {
     MvpConductorLifecycleListener<MvpView, MvpPresenter<MvpView>> lifecycleListener =
         new MvpConductorLifecycleListener<>(callback);
 
-    lifecycleListener.preAttach(controller, view);
+    lifecycleListener.postCreateView(controller, view);
 
     // Attach
     Mockito.verify(presenter, Mockito.times(1)).attachView(mvpView);
 
     // Detach
-    lifecycleListener.postDetach(controller, view);
+    lifecycleListener.preDestroyView(controller, view);
     Mockito.verify(presenter, Mockito.times(1)).detachView(true);
 
 
     // Reattach
-    lifecycleListener.preAttach(controller, view);
+    lifecycleListener.postCreateView(controller, view);
     Mockito.verify(presenter, Mockito.times(2)).attachView(mvpView);
   }
 
@@ -189,7 +189,7 @@ public class MvpConductorLifecycleListenerTest {
     Mockito.when(callback.getPresenter()).thenReturn(null);
 
     try {
-      lifecycleListener.postDetach(controller, view);
+      lifecycleListener.preDestroyView(controller, view);
       Assert.fail();
     } catch (NullPointerException e) {
       Assert.assertEquals(e.getMessage(),
