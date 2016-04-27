@@ -32,7 +32,7 @@ public abstract class MvpLceViewStateController<CV extends View, M, V extends Mv
   @Override protected LifecycleListener getMosbyLifecycleListener() {
     return new MvpViewStateConductorLifecycleListener<V, P, LceViewState<M, V>>(this) {
 
-      private void setupViews(View view) {
+      private void setupViewsIfNeeded(View view) {
         if (loadingView == null) {
           loadingView = view.findViewById(getLoadingViewId());
           contentView = (CV) view.findViewById(getContentViewId());
@@ -69,12 +69,12 @@ public abstract class MvpLceViewStateController<CV extends View, M, V extends Mv
 
       @Override public void onRestoreViewState(@NonNull Controller controller,
           @NonNull Bundle savedViewState) {
-        setupViews(controller.getView());
+        setupViewsIfNeeded(controller.getView());
         super.onRestoreViewState(controller, savedViewState);
       }
 
       @Override public void postCreateView(@NonNull Controller controller, @NonNull View view) {
-        setupViews(view);
+        setupViewsIfNeeded(view);
         super.postCreateView(controller, view);
       }
 
