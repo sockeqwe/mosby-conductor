@@ -1,5 +1,6 @@
 package com.hannesdorfmann.mosby.conductor.sample.tasks
 
+import android.util.Log
 import com.hannesdorfmann.mosby.conductor.sample.R
 import com.hannesdorfmann.mosby.conductor.sample.model.tasks.TaskDao
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
@@ -56,6 +57,8 @@ class TasksPresenter @Inject constructor(private val dao: TaskDao) : MvpBasePres
     if (!retainInstance) {
       subscription.unsubscribe()
     }
+
+    Log.d("Test", "detachView $retainInstance")
   }
 
 }

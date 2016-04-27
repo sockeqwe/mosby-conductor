@@ -1,4 +1,4 @@
-package com.hannesdorfmann.mosby.conductor.viewstate;
+package com.hannesdorfmann.mosby.conductor.viewstate.delegate;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,8 +7,6 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.view.View;
 import com.bluelinelabs.conductor.Controller;
-import com.hannesdorfmann.mosby.conductor.viewstate.delegate.MvpViewStateConductorDelegateCallback;
-import com.hannesdorfmann.mosby.conductor.viewstate.delegate.MvpViewStateConductorLifecycleListener;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceView;
@@ -79,7 +77,6 @@ public class MvpViewStateConductorLifecycleTest {
     lifecycleListener.postCreateView(controller, view);
     lifecycleListener.preAttach(controller, view);
 
-
     Mockito.verify(callback, Mockito.times(1)).getViewState();
     Mockito.verify(callback, Mockito.times(1)).createViewState();
     Mockito.verify(callback, Mockito.times(1)).setViewState(viewState);
@@ -99,13 +96,10 @@ public class MvpViewStateConductorLifecycleTest {
     ParcelableDataLceViewState<Model, MvpLceView<Model>> viewState =
         Mockito.spy(new ParcelableDataLceViewState<Model, MvpLceView<Model>>());
 
-
     Mockito.when(callback.getPresenter()).thenReturn(presenter);
     Mockito.when(callback.getMvpView()).thenReturn(mvpView);
     Mockito.when(callback.createViewState())
         .thenReturn(new ParcelableDataLceViewState<Model, ModelView>());
-
-
 
     MvpViewStateConductorLifecycleListener<ModelView, MvpPresenter<ModelView>, ViewState<ModelView>>
         lifecycleListener = new MvpViewStateConductorLifecycleListener<>(callback);
@@ -148,7 +142,6 @@ public class MvpViewStateConductorLifecycleTest {
 
     Bundle bundle = Mockito.mock(Bundle.class);
 
-
     lifecycleListener.postCreateView(controller, view);
     // lifecycleListener.onRestoreViewState(controller, bundle); Not called because first time starts
     lifecycleListener.preAttach(controller, view);
@@ -177,7 +170,7 @@ public class MvpViewStateConductorLifecycleTest {
 
     Bundle bundle = new Bundle();
 
-
+    lifecycleListener.changingConfigurations = true; // Simulate screen orientation change
     lifecycleListener.postCreateView(controller, view);
     lifecycleListener.onRestoreViewState(controller, bundle);
 
@@ -214,7 +207,6 @@ public class MvpViewStateConductorLifecycleTest {
 
     lifecycleListener.onSaveViewState(controller, bundle);
     lifecycleListener.preDestroyView(controller, view);
-
 
     Mockito.verify(bundle, Mockito.times(1))
         .putParcelable(Mockito.eq(ParcelableDataLceViewState.KEY_BUNDLE_VIEW_STATE),

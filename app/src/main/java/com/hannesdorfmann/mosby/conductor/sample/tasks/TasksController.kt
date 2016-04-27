@@ -2,6 +2,7 @@ package com.hannesdorfmann.mosby.conductor.sample.tasks
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,19 +27,18 @@ class TasksController : TasksView, MvpLceViewStateController<RecyclerView, List<
 
   private lateinit var adapter: TasksAdapter
 
-
   override fun setData(data: List<TaskListItem>) {
     adapter.setItems(data)
   }
 
   override fun loadData(pullToRefresh: Boolean) {
+    Log.d("Test", "loadData($pullToRefresh)")
     presenter.getTasks()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
     val view = inflater.inflate(
         R.layout.controller_tasks, container, false)
-
 
     val addTask = view.findViewById(R.id.addTask)
     addTask.setOnClickListener {
