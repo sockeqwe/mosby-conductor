@@ -1,5 +1,6 @@
 package com.hannesdorfmann.mosby.mvp.conductor.lce;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import com.bluelinelabs.conductor.Controller;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.conductor.MvpController;
 import com.hannesdorfmann.mosby.mvp.conductor.R;
+import com.hannesdorfmann.mosby.mvp.conductor.delegate.MvpConductorLifecycleListener;
 import com.hannesdorfmann.mosby.mvp.lce.LceAnimator;
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceView;
 
@@ -46,50 +48,63 @@ public abstract class MvpLceController<CV extends View, M, V extends MvpLceView<
   protected CV contentView;
   protected TextView errorView;
 
-  // Initializer to set up LCE views
-  {
-    addLifecycleListener(new LifecycleListener() {
-      @Override public void postCreateView(@NonNull Controller controller, @NonNull View view) {
+  @Override protected LifecycleListener getMosbyLifecycleListener() {
+    return new MvpConductorLifecycleListener<V, P>(this) {
 
-        loadingView = view.findViewById(getLoadingViewId());
-        contentView = (CV) view.findViewById(getContentViewId());
-        errorView = (TextView) view.findViewById(getErrorViewId());
-
+      private void setupViews(View view) {
         if (loadingView == null) {
-          throw new NullPointerException(
-              "Loading view is null! Have you specified a loading view in your layout xml file?"
-                  + " You have to give your loading View the id R.id.loadingView "
-                  + "(or your custom id if you have overridden getLoadingViewId()");
-        }
+          loadingView = view.findViewById(getLoadingViewId());
+          contentView = (CV) view.findViewById(getContentViewId());
+          errorView = (TextView) view.findViewById(getErrorViewId());
 
-        if (contentView == null) {
-          throw new NullPointerException(
-              "Content view is null! Have you specified a content view in your layout xml file?"
-                  + " You have to give your content View the id R.id.contentView"
-                  + "(or your custom id if you have overridden getContentViewId()");
-        }
-
-        if (errorView == null) {
-          throw new NullPointerException(
-              "Error view is null! Have you specified a content view in your layout xml file?"
-                  + " You have to give your error View the id R.id.errorView"
-                  + "(or your custom id if you have overridden getErrorViewId()");
-        }
-
-        errorView.setOnClickListener(new View.OnClickListener() {
-          @Override public void onClick(View v) {
-            onErrorViewClicked();
+          if (loadingView == null) {
+            throw new NullPointerException(
+                "Loading view is null! Have you specified a loading view in your layout xml file?"
+                    + " You have to give your loading View the id R.id.loadingView "
+                    + "(or your custom id if you have overridden getLoadingViewId()");
           }
-        });
+
+          if (contentView == null) {
+            throw new NullPointerException(
+                "Content view is null! Have you specified a content view in your layout xml file?"
+                    + " You have to give your content View the id R.id.contentView"
+                    + "(or your custom id if you have overridden getContentViewId()");
+          }
+
+          if (errorView == null) {
+            throw new NullPointerException(
+                "Error view is null! Have you specified a content view in your layout xml file?"
+                    + " You have to give your error View the id R.id.errorView"
+                    + "(or your custom id if you have overridden getErrorViewId()");
+          }
+
+          errorView.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+              onErrorViewClicked();
+            }
+          });
+        }
+      }
+
+      @Override public void onRestoreViewState(@NonNull Controller controller,
+          @NonNull Bundle savedViewState) {
+        setupViews(controller.getView());
+        super.onRestoreViewState(controller, savedViewState);
+      }
+
+      @Override public void postCreateView(@NonNull Controller controller, @NonNull View view) {
+        setupViews(view);
+        super.postCreateView(controller, view);
       }
 
       @Override public void postDestroyView(@NonNull Controller controller) {
+        super.postDestroyView(controller);
         loadingView = null;
         contentView = null;
         errorView.setOnClickListener(null);
         errorView = null;
       }
-    });
+    };
   }
 
   /**

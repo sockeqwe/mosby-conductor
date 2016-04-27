@@ -1,6 +1,9 @@
 package com.hannesdorfmann.mosby.conductor.viewstate.lce;
 
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.TextView;
 import com.bluelinelabs.conductor.Controller;
 import com.hannesdorfmann.mosby.conductor.viewstate.MvpViewStateController;
 import com.hannesdorfmann.mosby.conductor.viewstate.delegate.MvpViewStateConductorDelegateCallback;
@@ -26,8 +29,63 @@ public abstract class MvpLceViewStateController<CV extends View, M, V extends Mv
   protected LceViewState<M, V> viewState;
   protected boolean restoringViewState = false;
 
-  @Override protected Controller.LifecycleListener getMosbyLifecycleListener() {
-    return new MvpViewStateConductorLifecycleListener<>(this);
+  @Override protected LifecycleListener getMosbyLifecycleListener() {
+    return new MvpViewStateConductorLifecycleListener<V, P, LceViewState<M, V>>(this) {
+
+      private void setupViews(View view) {
+        if (loadingView == null) {
+          loadingView = view.findViewById(getLoadingViewId());
+          contentView = (CV) view.findViewById(getContentViewId());
+          errorView = (TextView) view.findViewById(getErrorViewId());
+
+          if (loadingView == null) {
+            throw new NullPointerException(
+                "Loading view is null! Have you specified a loading view in your layout xml file?"
+                    + " You have to give your loading View the id R.id.loadingView "
+                    + "(or your custom id if you have overridden getLoadingViewId()");
+          }
+
+          if (contentView == null) {
+            throw new NullPointerException(
+                "Content view is null! Have you specified a content view in your layout xml file?"
+                    + " You have to give your content View the id R.id.contentView"
+                    + "(or your custom id if you have overridden getContentViewId()");
+          }
+
+          if (errorView == null) {
+            throw new NullPointerException(
+                "Error view is null! Have you specified a content view in your layout xml file?"
+                    + " You have to give your error View the id R.id.errorView"
+                    + "(or your custom id if you have overridden getErrorViewId()");
+          }
+
+          errorView.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+              onErrorViewClicked();
+            }
+          });
+        }
+      }
+
+      @Override public void onRestoreViewState(@NonNull Controller controller,
+          @NonNull Bundle savedViewState) {
+        setupViews(controller.getView());
+        super.onRestoreViewState(controller, savedViewState);
+      }
+
+      @Override public void postCreateView(@NonNull Controller controller, @NonNull View view) {
+        setupViews(view);
+        super.postCreateView(controller, view);
+      }
+
+      @Override public void postDestroyView(@NonNull Controller controller) {
+        super.postDestroyView(controller);
+        loadingView = null;
+        contentView = null;
+        errorView.setOnClickListener(null);
+        errorView = null;
+      }
+    };
   }
 
   @Override public boolean isRestoringViewState() {
@@ -46,8 +104,6 @@ public abstract class MvpLceViewStateController<CV extends View, M, V extends Mv
     return viewState;
   }
 
-
-
   @Override public void showContent() {
     super.showContent();
     viewState.setStateShowContent(getData());
@@ -62,7 +118,6 @@ public abstract class MvpLceViewStateController<CV extends View, M, V extends Mv
     super.showLoading(pullToRefresh);
     viewState.setStateShowLoading(pullToRefresh);
   }
-
 
   @Override protected void showLightError(String msg) {
     if (isRestoringViewState()) {
