@@ -1,46 +1,27 @@
 language: android
-
 android:
   components:
-    - tools
-    - build-tools-23.0.3
-    - extra-android-m2repository
-    - android-23
-#    - android-18
-#    - sys-img-armeabi-v7a-android-18
-#    - sys-img-armeabi-v7a-android-23
-
+  - tools
+  - build-tools-23.0.3
+  - extra-android-m2repository
+  - android-23
 before_install:
- - chmod +x .buildscript/deploy_snapshot.sh
-
+- chmod +x .buildscript/deploy_snapshot.sh
 jdk:
-  - oraclejdk8
-
-env:
-  global:
-    - MALLOC_ARENA_MAX=2
-    - secure: "SgEtbzawZSAUCPUmJeBMs4s+7LkfAspJkat3P8NKkEkMBLSR7Wd/pwhwh70oGqJ4Jlf9SIcATyW2bCr90MOCQndaDzMwDwKyZ0u8D7bF+PvvT6CTRLPOlSOUGjSA1i9IjOztBxf7foEvU1PmwooLVTwlO7+1ZXishbF9sEUVQ2qzs8Te7sTEUeJI1JrUoy85zTHFJtnp0cXv35ux17See76XMMcmwW6ZVY0ZsZMIFHLugEmAGrSJU1WRz8d/MQBIZBftgTrX3J2B2+Cf2eDpZM07l6qhZFCwOXuGP2DAqMC/+ryakKf1Ja2CShLyaE0eV7yv0HAwocrXDqGv0T8+ZBAenD3L1xsptLK+XFECtAGAVSuKruvmUdy7AQOm1s8/LdBPkIeyyJdkicSTDzAEnB/Zt6bcCrgoJ5udHbdztztysBgo7XkP6z8Qj/6Q4P2G0fJKNHvZN64CICIZnbMKwery4KwfxpxCasbDgrVNkKeUGzGumLlNwnJ6xqmhb4lGUSUi3+hgKWiye2605rAhPar8Ss/KZUtnv7ZA0y4Wv3oAE7/gAqZ0//dEcZVTylnKl/YWfWVwYVvFQb1MqSc7fQnPkV87ownJbqnOijb2U0X9QY6jid1j3aQRm8EDxuUJsBKALFZL1aJED9nrRqNnYXXH0QgDV64T8p9EbigqgGE="
-    - secure: "QKdk17ieitiGIquabnLkeRE69CtjXFuIz8yArNrKslRkMvQ5D6Uz5kwDubMZ5aSey0r2gTOzudxhcad/f4odPe16I/S3rZdtqyf7SdtiByvCWY6efsh3NtHh/lRyrZkfodET59rIsSxuTpfCtpHDTe0kLXMmigFXEgFOmLQSrIdtxmhg9cCCoCEqv/VQNc3EHg/DllZO5uZauqnI/W9zx3wzP26wA7lITS9oqgJvt2gBJ+SOH6mx5BkcqlKqTzM7p65efqGIez0TWR/ObOVJukNZpAp5qkwFI3iqgfvFLPwjxEeJisN1GEmC8vGj+GdSBO/NOf9h6WKj1TvyYnVJ9MTv0BpA2zF75KYLUOzypBKWMxfAo7NaCZWwIx9/QabRFsv4I8U0Jqj8tL5TLG8IrcVWgzF/7p+C2mCvkfSWp5WV/HgDgcmc09I1KDWYTw9sE+zhCWKanJpp8dKKaDC2fNAM1NzZoe8AneOPkYumO2sxj13eXYLT/p+QWNJVIp+cyxjYlUItMiEO0KiQiBT9/oYKIxiKEppQVl/Le7TUjRvAY1ntqHkVCys1UPL/4Cl8m7qaThS6t5cgHDcO+Sq/fyarKf/JvV0ry07BnxIEUwn7t3j92D0vhO0PoiNvTyWkCwttRCn/MtnUC02nf4F7Fx9d/WmtFqMJGe70/zp/8FI="
+- oraclejdk8
 branches:
   except:
-    - gh-pages
-
+  - gh-pages
 notifications:
   email: false
-
 sudo: required
-
-script: ./gradlew build --stacktrace
-
+script: "./gradlew build --stacktrace"
 after_success:
-  - .buildscript/deploy_snapshot.sh
-
+- ".buildscript/deploy_snapshot.sh"
 cache:
   directories:
-    - $HOME/.gradle
-
-# before_script:
-#  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
-#  - emulator -avd test -no-skin -no-audio -no-window &
-#  - android-wait-for-emulator
-#  - adb shell input keyevent 82 &
+  - "$HOME/.gradle"
+env:
+  global:
+  - secure: FehqhSPXt97mROyTiWiSRs+0JCgTUrYJ0p2kA6ESJbjV37OxtM+/ycWogHyJ1kgwB6wbBzcC/rBSIDi9Zh+eJ1KAiosFKVWj8sD7vozfnTepReuxG6q+Fd6qm9k2FLAzE5p8N5+dwel52con7j2q9L3cMtr6yC4Tud1I8vvQuSaYA0Jr3QqKwT0bkvU0EcxM5dCZ3Ri7CmQJ0p9Er9KWAvJZB6dzwljOsiMPxK2yxQii4wbtLOjgbuzE+R7yMkPq3CN25xvfOf5TWTqBeTCjEpdzub3rG3JQDuZb7+wmY+8ei+pWCWZPCX+9d88A/rXmKUzgaYs3+QuGibJ4r9u/Zwfy02dJ2x9BAZgaeum6KP581lfXn325HAQIpIAGXkHh5AE1PfVMhdP7nQrgp0x/D2MPltgJtswtiTJcCKWS0W2X+HkWMhadUpOPhBUIFkik5Ugo6AlIbcgy1I3T00wrNOs8ffMzcf1LpE2sBuNfkL6SDrYkKVwPVDqZFRv5aaTfPuG36cuiCg833MPZ7I1ge0CkJxq7UFogj/9FsVjpWsxjqUIOvbzMAFLqrcYEPc3GEj5pOS2rn5XeuhmsVlJ/Ma/sMynGBaiBchFwpTY/CZrNuxkasmERtQje0N2ghlghUbQuXogwaBz9S3IRX2bXP2Vft3Q7Mi3S7zgcN84wygw=
+  - secure: UUDI2Cq2Y4/BphpJGSaQGv1DB3t7tukv4dsd01/ICcfTA5LAlgfFlESBYU3clG8Nh8AguHOZXWElLo8FO0l1A3qNzViCAZXgTfn4EqmNO36MuWg4ygfPmcwCzXijDRKirrv1yqZhbMSPUyRgCjKsHzVz+ZSrqOnIJ/iI1hXeq+aAtRIw1SXiTtkPxQe0LoxiPXPmmCtlzEBw41dydOIKCZMgz8+tpB0QV0SDANO9MNjPfjk5X+E23ta7iYm+dOBknGRogVMTuXcoQKeGGpoPyrLbnRCOfQFv0B+Z90JswUb17ip3hrXb3tjkM4XU5X2gQDJ25CNwWH2buJifA6dfkeHGnfzfQtGaNAP6keOs4ETKIJwXkvByuOXcyak/WpX66CtqJh3BeOjm2y1x/oSszI5YRvZdNCBkHNXfCjLOx2+wnExUQHL6XHPdwaTDmvVreRM6z64wcmvhNfy4H9oOrRyalCnoa19vY5PLUKCnmbRYCY2EATBt9BGdiZ5LFC+FA9Vh9eB6nVKBqHzoDxpihLZDT+aiw8n6cubwI/4k8hwqwL9vS1KoS0hYK3rkUQ044Feo1hlq+XiV4MrfV0q/VAasQ0lRkAbynXLySSjnvRSYw0qSvufne3OnmsSibg5EzIcM7BveUXUHADRcOeRzH6Hx0flRgXFyiBP9JOXbMeA=

@@ -3,6 +3,8 @@ This plugin for using [Mosby](https://github.com/sockeqwe/mosby) with [Conductor
 
 
 ## Dependencies
+[![Build Status](https://travis-ci.org/sockeqwe/mosby-conductor.svg?branch=master)](https://travis-ci.org/sockeqwe/mosby-conductor)
+
 ```groovy
 dependencies {
     compile 'com.hannesdorfmann.mosby:mvp-conductor:0.7.0'
