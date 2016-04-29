@@ -41,7 +41,7 @@ def getRepositoryUsername() {
 }
 
 def getRepositoryPassword() {
-  def password = "$System.env.NEXUS_USERNAME"
+  def password = "$System.env.NEXUS_PASSWORD"
   if (password == null) {
     password = ""
   }
