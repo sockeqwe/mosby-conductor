@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
+import com.bluelinelabs.conductor.RouterTransaction
 import com.hannesdorfmann.mosby.conductor.sample.tasks.TasksController
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     router = Conductor.attachRouter(this, container, savedInstanceState)
     if (!router.hasRootController()) {
-      router.setRoot(TasksController())
+      router.setRoot(RouterTransaction.with(TasksController()))
     }
   }
 

@@ -31,9 +31,9 @@ interface Navigator {
 
 
 
-    router.pushController(RouterTransaction.builder(CreateTaskController())
+    router.pushController(RouterTransaction.with(CreateTaskController())
         .pushChangeHandler(handler)
         .popChangeHandler(handler)
-        .build())
+    )
   }
 }

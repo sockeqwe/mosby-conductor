@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import com.bluelinelabs.conductor.ChildControllerTransaction
+import com.bluelinelabs.conductor.RouterTransaction
 import com.hannesdorfmann.mosby.conductor.sample.R
 import com.hannesdorfmann.mosby.conductor.sample.create.contactspicker.ContactsPickerController
 import com.hannesdorfmann.mosby.conductor.sample.daggerComponent
@@ -42,12 +42,15 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
     selectedPersonRecyclerView = view.findViewById(R.id.personRecyclerView) as RecyclerView
 
     val addPersonButton = view.findViewById(R.id.addPerson)
+    val personPickerContainer = view.findViewById(R.id.personPickerContainer) as ViewGroup
     addPersonButton.setOnClickListener {
-      addChildController(
-          ChildControllerTransaction.builder(ContactsPickerController(), R.id.personPickerContainer)
-              .addToLocalBackstack(true)
-              .popChangeHandler(ContactsPickerChaneHandler())
-              .build())
+      val childRouter = getChildRouter(personPickerContainer, null)
+      if (!childRouter.hasRootController()) {
+        childRouter.setRoot(RouterTransaction.with(ContactsPickerController())
+            .popChangeHandler(ContactsPickerChaneHandler())
+        )
+        childRouter.setPopsLastView(true)
+      }
     }
 
     return view

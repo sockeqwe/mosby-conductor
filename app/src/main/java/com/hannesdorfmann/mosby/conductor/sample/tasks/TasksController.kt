@@ -28,7 +28,7 @@ class TasksController : TasksView, MvpLceViewStateController<RecyclerView, List<
   private lateinit var adapter: TasksAdapter
 
   override fun setData(data: List<TaskListItem>) {
-    adapter.setItems(data)
+    adapter.items = data
   }
 
   override fun loadData(pullToRefresh: Boolean) {
