@@ -14,7 +14,7 @@ import android.view.ViewGroup
 import com.hannesdorfmann.adapterdelegates2.AdapterDelegatesManager
 import com.hannesdorfmann.adapterdelegates2.ListDelegationAdapter
 import com.hannesdorfmann.mosby.conductor.sample.R
-import com.hannesdorfmann.mosby.conductor.sample.daggerComponent
+import com.hannesdorfmann.mosby.conductor.sample.create.CreateTaskController
 import com.hannesdorfmann.mosby.conductor.sample.model.contacts.Contact
 import com.hannesdorfmann.mosby.conductor.viewstate.lce.MvpLceViewStateController
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.RetainingLceViewState
@@ -38,7 +38,8 @@ class ContactsPickerController : ContactsPickerView, MvpLceViewStateController<C
 
 
     val manager = AdapterDelegatesManager<List<Contact>>()
-        .addDelegate(ContactAdapterDelegate(activity.layoutInflater, { // TODO implement
+        .addDelegate(ContactAdapterDelegate(activity.layoutInflater, {
+          presenter.addContact(it)
         }))
 
     adapter = ListDelegationAdapter(manager)
@@ -61,7 +62,7 @@ class ContactsPickerController : ContactsPickerView, MvpLceViewStateController<C
   override fun getErrorMessage(e: Throwable?, pullToRefresh: Boolean): String =
       activity.getString(R.string.error)
 
-  override fun createPresenter() = daggerComponent.contactsPickerPresenter()
+  override fun createPresenter() = (parentController as CreateTaskController).createTaskComponent.contactsPickerPresenter()
 
   override fun onNewViewStateInstance() {
     if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(activity,
@@ -80,7 +81,6 @@ class ContactsPickerController : ContactsPickerView, MvpLceViewStateController<C
       showError(RuntimeException("Permission not granted"), false)
     }
   }
-
 
   override fun animateContentViewIn() {
     TransitionManager.beginDelayedTransition(view.parent.parent as ViewGroup)
@@ -101,5 +101,9 @@ class ContactsPickerController : ContactsPickerView, MvpLceViewStateController<C
     contentView.visibility = View.GONE
     errorView.visibility = View.GONE
     loadingView.visibility = View.VISIBLE
+  }
+
+  override fun finish() {
+    router.popController(this)
   }
 }

@@ -9,4 +9,6 @@ import com.hannesdorfmann.mosby.mvp.lce.MvpLceView
  *
  * @author Hannes Dorfmann
  */
-interface ContactsPickerView : MvpLceView<List<Contact>>
+interface ContactsPickerView : MvpLceView<List<Contact>> {
+  fun finish()
+}

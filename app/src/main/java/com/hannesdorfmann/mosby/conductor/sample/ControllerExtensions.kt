@@ -16,9 +16,11 @@ import com.hannesdorfmann.mosby.conductor.sample.navigation.TabletNavigator
 fun Controller.isTablet() = false // TODO implement
 
 val Controller.daggerComponent: ControllerComponent
-  get() = DaggerControllerComponent.builder().applicationComponent(
-      SampleApplication.getComponent(applicationContext)).controllerModule(
-      ControllerModule(if (isTablet()) TabletNavigator(router) else PhoneNavigator(router)))
+  get() = DaggerControllerComponent
+      .builder()
+      .applicationComponent(SampleApplication.getComponent(applicationContext))
+      .controllerModule(
+          ControllerModule(if (isTablet()) TabletNavigator(router) else PhoneNavigator(router)))
       .build()
 
 
