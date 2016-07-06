@@ -83,21 +83,24 @@ class ContactsPickerController : ContactsPickerView, MvpLceViewStateController<C
   }
 
   override fun animateContentViewIn() {
-    TransitionManager.beginDelayedTransition(view.parent.parent as ViewGroup)
+    if (!restoringViewState) TransitionManager.beginDelayedTransition(
+        view.parent.parent as ViewGroup)
     loadingView.visibility = View.GONE
     errorView.visibility = View.GONE
     contentView.visibility = View.VISIBLE
   }
 
   override fun animateErrorViewIn() {
-    TransitionManager.beginDelayedTransition(view.parent.parent as ViewGroup)
+    if (!restoringViewState) TransitionManager.beginDelayedTransition(
+        view.parent.parent as ViewGroup)
     loadingView.visibility = View.GONE
     contentView.visibility = View.GONE
     errorView.visibility = View.VISIBLE
   }
 
   override fun animateLoadingViewIn() {
-    TransitionManager.beginDelayedTransition(view.parent.parent as ViewGroup)
+    if (!restoringViewState) TransitionManager.beginDelayedTransition(
+        view.parent.parent as ViewGroup)
     contentView.visibility = View.GONE
     errorView.visibility = View.GONE
     loadingView.visibility = View.VISIBLE

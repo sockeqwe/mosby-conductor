@@ -1,6 +1,7 @@
 package com.hannesdorfmann.mosby.mvp.conductor.delegate;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby.mvp.MvpView;
 
@@ -30,7 +31,7 @@ public interface MvpConductorDelegateCallback<V extends MvpView, P extends MvpPr
    *
    * @return the presenter instance. can be null.
    */
-  @NonNull public P getPresenter();
+  @Nullable public P getPresenter();
 
   /**
    * Sets the presenter instance
