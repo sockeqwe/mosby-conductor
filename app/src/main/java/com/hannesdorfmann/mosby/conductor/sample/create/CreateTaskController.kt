@@ -1,17 +1,22 @@
 package com.hannesdorfmann.mosby.conductor.sample.create
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import com.bluelinelabs.conductor.RouterTransaction
+import com.hannesdorfmann.adapterdelegates2.AdapterDelegatesManager
+import com.hannesdorfmann.adapterdelegates2.ListDelegationAdapter
 import com.hannesdorfmann.mosby.conductor.sample.R
+import com.hannesdorfmann.mosby.conductor.sample.create.contactspicker.ContactAdapterDelegate
 import com.hannesdorfmann.mosby.conductor.sample.create.contactspicker.ContactsPickerController
 import com.hannesdorfmann.mosby.conductor.sample.dagger.DaggerTaskCreationComponent
 import com.hannesdorfmann.mosby.conductor.sample.dagger.TaskCreationComponent
 import com.hannesdorfmann.mosby.conductor.sample.daggerComponent
+import com.hannesdorfmann.mosby.conductor.sample.model.contacts.Contact
 import com.hannesdorfmann.mosby.conductor.sample.model.tasks.TaskBuilder
 import com.hannesdorfmann.mosby.conductor.sample.navigation.changehandlers.ContactsPickerChaneHandler
 import com.hannesdorfmann.mosby.conductor.viewstate.MvpViewStateController
@@ -29,6 +34,8 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
   private lateinit var title: EditText
   private lateinit var description: EditText
   private lateinit var selectedPersonRecyclerView: RecyclerView
+  private lateinit var selectedPersonAdapter: ListDelegationAdapter<List<Contact>>
+
   val createTaskComponent: TaskCreationComponent by lazy {
     val component = DaggerTaskCreationComponent
         .builder()
@@ -80,6 +87,15 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
       }
     }
 
+
+    val manager = AdapterDelegatesManager<List<Contact>>()
+        .addDelegate(ContactAdapterDelegate(activity.layoutInflater, {}))
+
+    selectedPersonAdapter = ListDelegationAdapter(manager)
+    selectedPersonRecyclerView.adapter = selectedPersonAdapter
+    selectedPersonRecyclerView.layoutManager = LinearLayoutManager(activity)
+
+
     return view
   }
 
@@ -117,5 +133,7 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
     }
 
 
+    selectedPersonAdapter.items = taskSnapshot.contacts
+    selectedPersonAdapter.notifyDataSetChanged()
   }
 }
