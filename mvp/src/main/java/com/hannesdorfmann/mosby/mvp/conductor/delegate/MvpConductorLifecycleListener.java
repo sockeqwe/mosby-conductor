@@ -26,7 +26,6 @@ public class MvpConductorLifecycleListener<V extends MvpView, P extends MvpPrese
     extends Controller.LifecycleListener {
 
   protected final MvpConductorDelegateCallback<V, P> callback;
-  // TODO once https://github.com/bluelinelabs/Conductor/issues/85 is fixed
   public boolean changingConfigurations = false;
 
   /**
@@ -72,29 +71,7 @@ public class MvpConductorLifecycleListener<V extends MvpView, P extends MvpPrese
           "Presenter returned from getPresenter() is null in " + callback);
     }
 
-    changingConfigurations = isChangingConfig(controller); // TODO remove once fixed #85
+    changingConfigurations = controller.getActivity().isChangingConfigurations();
     presenter.detachView(changingConfigurations);
-  }
-
-  /**
-   * Determines whether or not a configuration change (like screen orientation change) is running
-   * right now
-   *
-   * @param controller The controller
-   * @return true if it is changing configuraion, otherwise false
-   */
-  protected boolean isChangingConfig(Controller controller) {
-    // TODO remove this ugly workaround, once https://github.com/bluelinelabs/Conductor/issues/85 is fixed
-    Controller parent = null;
-    Controller last = controller;
-    while ((parent = last.getParentController()) != null) {
-      last = parent;
-    }
-
-    if (last.getActivity() == null) {
-      throw new NullPointerException(
-          "Controller.getActivity() returned null for controller " + controller);
-    }
-    return last.getActivity().isChangingConfigurations();
   }
 }
