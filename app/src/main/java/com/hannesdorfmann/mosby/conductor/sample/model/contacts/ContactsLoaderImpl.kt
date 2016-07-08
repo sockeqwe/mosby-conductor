@@ -26,8 +26,11 @@ class ContactsLoaderImpl(private val context: Context) : ContactsLoader {
     val contacts = ArrayList<Contact>()
     try {
       if (cursor.count > 0) {
+        val colIndex = cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME_PRIMARY)
         while (cursor.moveToNext()) {
-          contacts.add(Contact(cursor.getString(0)))
+          if (!cursor.isNull(colIndex)) {
+            contacts.add(Contact(cursor.getString(colIndex)))
+          }
         }
       }
     } finally {

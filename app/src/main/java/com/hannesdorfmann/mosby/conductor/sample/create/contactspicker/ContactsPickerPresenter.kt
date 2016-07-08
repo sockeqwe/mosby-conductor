@@ -33,7 +33,10 @@ class ContactsPickerPresenter @Inject constructor(private val contacsLoader: Con
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(
             { view?.setData(it) }, // onNext()
-            { view?.showError(it, false) }, // onError()
+            {
+              view?.showError(it, false)
+              it.printStackTrace()
+            }, // onError()
             { view?.showContent() } // onCompleted
         )
   }
