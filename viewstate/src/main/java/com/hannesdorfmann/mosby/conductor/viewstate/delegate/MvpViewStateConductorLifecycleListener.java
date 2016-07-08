@@ -33,6 +33,7 @@ import com.hannesdorfmann.mosby.mvp.viewstate.ViewState;
 public class MvpViewStateConductorLifecycleListener<V extends MvpView, P extends MvpPresenter<V>, VS extends ViewState<V>>
     extends MvpConductorLifecycleListener<V, P> {
 
+  boolean changingConfigurations = false;
 
   public MvpViewStateConductorLifecycleListener(
       MvpViewStateConductorDelegateCallback<V, P, VS> callback) {
@@ -41,6 +42,7 @@ public class MvpViewStateConductorLifecycleListener<V extends MvpView, P extends
 
   @Override public void preDestroyView(@NonNull Controller controller, @NonNull View view) {
     super.preDestroyView(controller, view);
+    changingConfigurations = controller.getActivity().isChangingConfigurations();
   }
 
   @Override public void preAttach(@NonNull Controller controller, @NonNull View view) {

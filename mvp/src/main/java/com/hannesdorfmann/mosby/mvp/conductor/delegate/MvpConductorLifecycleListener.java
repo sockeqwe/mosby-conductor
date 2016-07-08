@@ -26,7 +26,6 @@ public class MvpConductorLifecycleListener<V extends MvpView, P extends MvpPrese
     extends Controller.LifecycleListener {
 
   protected final MvpConductorDelegateCallback<V, P> callback;
-  public boolean changingConfigurations = false;
 
   /**
    * Instantiate a new Mosby MVP Listener
@@ -70,8 +69,6 @@ public class MvpConductorLifecycleListener<V extends MvpView, P extends MvpPrese
       throw new NullPointerException(
           "Presenter returned from getPresenter() is null in " + callback);
     }
-
-    changingConfigurations = controller.getActivity().isChangingConfigurations();
-    presenter.detachView(changingConfigurations);
+    presenter.detachView(controller.getActivity().isChangingConfigurations());
   }
 }
