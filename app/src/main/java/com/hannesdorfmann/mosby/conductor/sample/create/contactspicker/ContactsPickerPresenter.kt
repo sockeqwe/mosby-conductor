@@ -4,7 +4,6 @@ import com.hannesdorfmann.mosby.conductor.sample.model.contacts.Contact
 import com.hannesdorfmann.mosby.conductor.sample.model.contacts.ContactsLoader
 import com.hannesdorfmann.mosby.conductor.sample.model.tasks.TaskBuilder
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
-import rx.Observable
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -18,7 +17,6 @@ import javax.inject.Inject
 class ContactsPickerPresenter @Inject constructor(private val contacsLoader: ContactsLoader, private val taskBuilder: TaskBuilder) : MvpBasePresenter<ContactsPickerView>() {
 
   private lateinit var subscription: Subscription
-  private lateinit var addContactSubscription: Subscription
 
   fun loadContacts() {
 
@@ -27,7 +25,7 @@ class ContactsPickerPresenter @Inject constructor(private val contacsLoader: Con
     subscription = contacsLoader.loadContacts()
         .subscribeOn(Schedulers.io())
         .map {
-          Thread.sleep(2000)
+          Thread.sleep(1000)
           it
         }
         .observeOn(AndroidSchedulers.mainThread())
@@ -42,20 +40,15 @@ class ContactsPickerPresenter @Inject constructor(private val contacsLoader: Con
   }
 
   fun addContact(c: Contact) {
-    Observable.just(arrayListOf(c))
-        .subscribe(taskBuilder.contactsListObserver)
-        .unsubscribe()
-
+    taskBuilder.addContact(c)
     view?.finish()
   }
 
   override fun detachView(retainInstance: Boolean) {
     super.detachView(retainInstance)
-
     if (!retainInstance) {
       subscription.unsubscribe()
     }
-
   }
 
 }

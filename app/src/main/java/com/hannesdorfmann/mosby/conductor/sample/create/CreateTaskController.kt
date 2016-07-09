@@ -21,7 +21,6 @@ import com.hannesdorfmann.mosby.conductor.sample.model.tasks.TaskBuilder
 import com.hannesdorfmann.mosby.conductor.sample.navigation.changehandlers.ContactsPickerChaneHandler
 import com.hannesdorfmann.mosby.conductor.viewstate.MvpViewStateController
 import com.jakewharton.rxbinding.widget.textChanges
-import rx.Observable
 import javax.inject.Inject
 
 /**
@@ -75,6 +74,9 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
     description = view.findViewById(R.id.description) as EditText
     selectedPersonRecyclerView = view.findViewById(R.id.personRecyclerView) as RecyclerView
 
+    title.textChanges().skip(1).map { it.toString() }.subscribe { presenter.setTaskTitle(it) }
+    description.textChanges().skip(1).map { it.toString() }.subscribe { presenter.setTaskDescription(it) }
+
     val addPersonButton = view.findViewById(R.id.addPerson)
     val personPickerContainer = view.findViewById(R.id.personPickerContainer) as ViewGroup
     addPersonButton.setOnClickListener {
@@ -115,12 +117,6 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
     viewState.setShowTaskCreated()
     router.popCurrentController()
   }
-
-  override fun title(): Observable<String> =
-      title.textChanges().map { it.toString() }
-
-  override fun description(): Observable<String> =
-      description.textChanges().map { it.toString() }
 
   override fun setTaskSnapshot(taskSnapshot: TaskBuilder.TaskSnapshot) {
 

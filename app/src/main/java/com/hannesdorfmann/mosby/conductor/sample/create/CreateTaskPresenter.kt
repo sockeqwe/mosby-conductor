@@ -12,23 +12,24 @@ import javax.inject.Inject
  * @author Hannes Dorfmann
  */
 class CreateTaskPresenter @Inject constructor(private val dao: TaskDao, private val taskBuilder: TaskBuilder) : MvpBasePresenter<CreateTaskView>() {
-
-  private lateinit var titleSubscription: Subscription
-  private lateinit var descriptionSubscription: Subscription
   private lateinit var taskBuilderSubscription: Subscription
 
   override fun attachView(view: CreateTaskView) {
     super.attachView(view)
-    titleSubscription = view.title().subscribe(taskBuilder.titleObserver)
-    descriptionSubscription = view.description().subscribe(taskBuilder.descriptionObserver)
     taskBuilderSubscription = taskBuilder.observable.subscribe({ getView()?.setTaskSnapshot(it) })
   }
 
   override fun detachView(retainInstance: Boolean) {
     super.detachView(retainInstance)
-    titleSubscription.unsubscribe()
-    descriptionSubscription.unsubscribe()
     taskBuilderSubscription.unsubscribe()
+  }
+
+  fun setTaskTitle(title: String) {
+    taskBuilder.setTitle(title)
+  }
+
+  fun setTaskDescription(description: String) {
+    taskBuilder.setDescription(description)
   }
 
   fun saveTask() {

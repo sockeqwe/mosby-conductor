@@ -5,7 +5,6 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.hannesdorfmann.mosby.conductor.sample.model.contacts.Contact
 import rx.Observable
-import rx.Observer
 import rx.subjects.BehaviorSubject
 import java.util.*
 
@@ -34,26 +33,30 @@ class TaskBuilder {
   }
 
 
-  //
-  // Public API
-  //
-  val titleObserver: Observer<String> = titleBehavior
-  val descriptionObserver: Observer<String> = descriptionBehavior
-  val contactsListObserver: Observer<ArrayList<Contact>> = contactBehavior
-
   /**
    * Public API to observe
    */
   val observable: Observable<TaskSnapshot> = Observable.combineLatest(
       titleBehavior,
       descriptionBehavior,
-      contactBehavior.scan { old, new ->
-        val res = ArrayList(old)
-        res.addAll(new)
-        res
-      },
+      contactBehavior,
       { title, description, contacts -> TaskSnapshot(title, description, contacts) }
   ).doOnNext { latestTaskSnapshot = it } // Sideeffect I know, but I can't think of any better option
+
+  fun addContact(c: Contact) {
+    val currentContacts = latestTaskSnapshot?.contacts ?: ArrayList()
+    val newContacts = ArrayList(currentContacts)
+    newContacts.add(c)
+    contactBehavior.onNext(newContacts)
+  }
+
+  fun setTitle(title: String) {
+    titleBehavior.onNext(title)
+  }
+
+  fun setDescription(description: String) {
+    descriptionBehavior.onNext(description)
+  }
 
   fun saveInstanceState(b: Bundle) {
     b.putParcelable(KEY_BUNDLE, latestTaskSnapshot)
