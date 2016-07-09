@@ -1,5 +1,6 @@
 package com.hannesdorfmann.mosby.conductor.sample.create
 
+import android.net.Uri
 import com.hannesdorfmann.mosby.conductor.sample.model.tasks.TaskBuilder
 import com.hannesdorfmann.mosby.conductor.sample.model.tasks.TaskDao
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
@@ -30,6 +31,10 @@ class CreateTaskPresenter @Inject constructor(private val dao: TaskDao, private 
 
   fun setTaskDescription(description: String) {
     taskBuilder.setDescription(description)
+  }
+
+  fun addImage(uri: Uri) {
+    taskBuilder.addImage(uri)
   }
 
   fun saveTask() {

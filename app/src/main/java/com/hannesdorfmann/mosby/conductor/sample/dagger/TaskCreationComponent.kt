@@ -29,4 +29,5 @@ interface TaskCreationComponent {
    * [ContactsPickerPresenter]
    */
   fun contactsPickerPresenter(): ContactsPickerPresenter
+
 }

@@ -24,11 +24,11 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
         android:hint="@string/create_task_title"
         android:maxLines="1"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
         />
 
   </android.support.v7.widget.Toolbar>
@@ -45,10 +45,10 @@
         android:id="@+id/scrollViewContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/activity_vertical_margin"
-        android:paddingRight="@dimen/activity_vertical_margin"
         android:clipToPadding="false"
         android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_vertical_margin"
         >
 
       <EditText
@@ -63,6 +63,7 @@
           android:id="@+id/addPersonHeader"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginBottom="4dp"
           android:layout_marginTop="@dimen/activity_horizontal_margin"
           android:orientation="horizontal"
           >
@@ -99,11 +100,47 @@
           android:id="@+id/personRecyclerView"
           android:layout_width="match_parent"
           android:layout_height="160dp"
-          android:background="@color/colorAccent"
+          android:background="@drawable/light_border"
+          />
+
+
+      <LinearLayout
+          android:id="@+id/addImageContainer"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="4dp"
+          android:layout_marginTop="@dimen/activity_horizontal_margin"
+          android:orientation="horizontal"
+          >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:text="@string/images"
+            />
+
+        <ImageButton
+            android:id="@+id/addImage"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_add_circle"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            />
+
+      </LinearLayout>
+
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/imageRecyclerView"
+          android:layout_width="match_parent"
+          android:layout_height="160dp"
+          android:background="@drawable/light_border"
           />
 
     </LinearLayout>
-
   </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

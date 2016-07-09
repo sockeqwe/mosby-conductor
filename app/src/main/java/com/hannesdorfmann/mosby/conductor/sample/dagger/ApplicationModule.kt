@@ -6,6 +6,7 @@ import com.hannesdorfmann.mosby.conductor.sample.model.contacts.ContactsLoaderIm
 import com.hannesdorfmann.mosby.conductor.sample.model.tasks.TaskDao
 import com.hannesdorfmann.mosby.conductor.sample.model.tasks.TaskDaoImpl
 import com.hannesdorfmann.sqlbrite.dao.DaoManager
+import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -42,5 +43,9 @@ class ApplicationModule(private val applicationContext: Context) {
   @Singleton
   @Provides
   fun provideContactsLoader(): ContactsLoader = ContactsLoaderImpl(applicationContext)
+
+  @Singleton
+  @Provides
+  fun providePicasso() = Picasso.with(applicationContext)
 
 }

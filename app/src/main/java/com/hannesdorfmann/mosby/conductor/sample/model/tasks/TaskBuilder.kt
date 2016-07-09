@@ -1,5 +1,6 @@
 package com.hannesdorfmann.mosby.conductor.sample.model.tasks
 
+import android.net.Uri
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
@@ -32,6 +33,11 @@ class TaskBuilder {
         latestTaskSnapshot?.contacts ?: ArrayList<Contact>())
   }
 
+  private val imageBehavior by lazy {
+    BehaviorSubject.create<ArrayList<Uri>>(
+        latestTaskSnapshot?.images ?: ArrayList<Uri>())
+  }
+
 
   /**
    * Public API to observe
@@ -40,7 +46,8 @@ class TaskBuilder {
       titleBehavior,
       descriptionBehavior,
       contactBehavior,
-      { title, description, contacts -> TaskSnapshot(title, description, contacts) }
+      imageBehavior,
+      { title, description, contacts, images -> TaskSnapshot(title, description, contacts, images) }
   ).doOnNext { latestTaskSnapshot = it } // Sideeffect I know, but I can't think of any better option
 
   fun addContact(c: Contact) {
@@ -48,6 +55,13 @@ class TaskBuilder {
     val newContacts = ArrayList(currentContacts)
     newContacts.add(c)
     contactBehavior.onNext(newContacts)
+  }
+
+  fun addImage(uri: Uri) {
+    val current = latestTaskSnapshot?.images ?: ArrayList()
+    val newList = ArrayList(current)
+    newList.add(uri)
+    imageBehavior.onNext(newList)
   }
 
   fun setTitle(title: String) {
@@ -72,13 +86,17 @@ class TaskBuilder {
   data class TaskSnapshot(
       var title: String = "",
       var description: String = "",
-      val contacts: ArrayList<Contact> = ArrayList<Contact>()
+      val contacts: ArrayList<Contact> = ArrayList<Contact>(),
+      val images: ArrayList<Uri> = ArrayList<Uri>()
 
   ) : Parcelable {
     constructor(
         source: Parcel) : this(source.readString(), source.readString(), ArrayList<Contact>().apply
     {
       source.readList(this, Contact::class.java.classLoader)
+    }, ArrayList<Uri>().apply
+    {
+      source.readList(this, Uri::class.java.classLoader)
     })
 
     override fun describeContents(): Int {
@@ -89,6 +107,7 @@ class TaskBuilder {
       dest.writeString(title)
       dest.writeString(description)
       dest.writeList(contacts)
+      dest.writeList(images)
     }
 
     companion object {

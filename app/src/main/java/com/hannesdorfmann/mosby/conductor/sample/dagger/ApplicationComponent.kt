@@ -2,6 +2,7 @@ package com.hannesdorfmann.mosby.conductor.sample.dagger
 
 import com.hannesdorfmann.mosby.conductor.sample.model.contacts.ContactsLoader
 import com.hannesdorfmann.mosby.conductor.sample.model.tasks.TaskDao
+import com.squareup.picasso.Picasso
 import dagger.Component
 import javax.inject.Singleton
 
@@ -16,5 +17,7 @@ interface ApplicationComponent {
 
   fun taskDao(): TaskDao
 
-  fun contactsLoader() : ContactsLoader
+  fun contactsLoader(): ContactsLoader
+
+  fun picasso(): Picasso
 }

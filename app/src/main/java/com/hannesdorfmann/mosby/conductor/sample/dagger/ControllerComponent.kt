@@ -4,6 +4,7 @@ import com.hannesdorfmann.mosby.conductor.sample.model.contacts.ContactsLoader
 import com.hannesdorfmann.mosby.conductor.sample.model.tasks.TaskDao
 import com.hannesdorfmann.mosby.conductor.sample.navigation.Navigator
 import com.hannesdorfmann.mosby.conductor.sample.tasks.TasksPresenter
+import com.squareup.picasso.Picasso
 import dagger.Component
 
 /**
@@ -15,6 +16,8 @@ import dagger.Component
     dependencies = arrayOf(ApplicationComponent::class))
 @ControllerScope
 interface ControllerComponent {
+
+  fun picasso(): Picasso
 
   fun taskDao(): TaskDao
 

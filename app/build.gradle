@@ -80,8 +80,11 @@ dependencies {
   compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
 
   compile 'io.reactivex:rxandroid:1.1.0'
-  compile 'io.reactivex:rxjava:1.1.5'
+  compile 'io.reactivex:rxjava:1.1.6'
 
   compile "com.jakewharton.rxbinding:rxbinding-kotlin:$rxBindings"
+
+  compile 'com.squareup.picasso:picasso:2.5.2'
+
 }
 

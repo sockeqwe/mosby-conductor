@@ -7,4 +7,6 @@
   <dimen name="task_item_textsize">18sp</dimen>
   <dimen name="create_task_toolbar_height">168dp</dimen>
   <dimen name="contacts_profile_pic_width_height">40dp</dimen>
+
+  <dimen name="image_grid_space">8dp</dimen>
 </resources>
