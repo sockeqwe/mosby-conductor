@@ -17,11 +17,11 @@ Internal dependencies are Conductor 1.1.4 and Mosby 2.0.1
 For Conductor 2.x use:
 ```groovy
 dependencies {
-    compile 'com.hannesdorfmann.mosby:mvp-conductor:0.8.0'
-    compile 'com.hannesdorfmann.mosby:viewstate-conductor:0.8.0' // optional viewstate feature
+    compile 'com.hannesdorfmann.mosby:mvp-conductor:0.8.1'
+    compile 'com.hannesdorfmann.mosby:viewstate-conductor:0.8.1' // optional viewstate feature
 }
 ```
-Internal dependencies are Conductor 2.0.0 and Mosby 2.0.1
+Internal dependencies are Conductor 2.0.1 and Mosby 2.0.1
 
 ## Usage
 Extend your own Conductor `Controller` from `MvpController` or from `MvpViewStateController` if you want to use ViewState feature.

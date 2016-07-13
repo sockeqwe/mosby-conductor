@@ -27,7 +27,7 @@ ext {
   targetSdk = 23
 
   mosby = '2.0.1'
-  conductor = '2.0.1-SNAPSHOT'
+  conductor = '2.0.1'
   supportLib = '24.0.0'
   mockito = '1.10.19'
   powermock='1.6.4'
