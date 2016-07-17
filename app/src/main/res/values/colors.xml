@@ -4,4 +4,5 @@
   <color name="colorPrimaryDark">#303F9F</color>
   <color name="colorAccent">#FF4081</color>
   <color name="imagePlaceholder">#E8E8E8</color>
+  <color name="dialog_overlay">#5A000000</color>
 </resources>

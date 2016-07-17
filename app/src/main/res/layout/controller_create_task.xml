@@ -59,6 +59,17 @@
           android:hint="@string/create_task_description"
           />
 
+      <TextView
+          android:id="@+id/date"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/activity_horizontal_margin"
+          android:text="@string/create_task_datetime"
+          android:drawableStart="@drawable/ic_date"
+          android:drawablePadding="8dp"
+          android:textSize="16sp"
+          />
+
       <LinearLayout
           android:id="@+id/addPersonHeader"
           android:layout_width="match_parent"

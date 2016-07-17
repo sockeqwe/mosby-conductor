@@ -11,18 +11,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import com.bluelinelabs.conductor.RouterTransaction
 import com.hannesdorfmann.adapterdelegates2.AdapterDelegatesManager
 import com.hannesdorfmann.adapterdelegates2.ListDelegationAdapter
 import com.hannesdorfmann.mosby.conductor.sample.R
 import com.hannesdorfmann.mosby.conductor.sample.create.contactspicker.ContactAdapterDelegate
 import com.hannesdorfmann.mosby.conductor.sample.create.contactspicker.ContactsPickerController
+import com.hannesdorfmann.mosby.conductor.sample.create.datetimepicker.DateTimePickerController
 import com.hannesdorfmann.mosby.conductor.sample.dagger.DaggerTaskCreationComponent
 import com.hannesdorfmann.mosby.conductor.sample.dagger.TaskCreationComponent
 import com.hannesdorfmann.mosby.conductor.sample.daggerComponent
 import com.hannesdorfmann.mosby.conductor.sample.model.contacts.Contact
 import com.hannesdorfmann.mosby.conductor.sample.model.tasks.TaskBuilder
 import com.hannesdorfmann.mosby.conductor.sample.navigation.changehandlers.ContactsPickerChaneHandler
+import com.hannesdorfmann.mosby.conductor.sample.navigation.changehandlers.DateTimePickerCircularRevealChangeHandler
 import com.hannesdorfmann.mosby.conductor.viewstate.MvpViewStateController
 import com.jakewharton.rxbinding.widget.textChanges
 import com.primetime.utils.recyclerview.GridSpacingItemDecoration
@@ -39,6 +42,7 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
 
   private lateinit var title: EditText
   private lateinit var description: EditText
+  private lateinit var date: TextView
   private lateinit var selectedPersonRecyclerView: RecyclerView
   private lateinit var selectedPersonAdapter: ListDelegationAdapter<List<Contact>>
   private lateinit var imagesRecyclerView: RecyclerView
@@ -81,12 +85,20 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
 
     title = view.findViewById(R.id.title) as EditText
     description = view.findViewById(R.id.description) as EditText
+    date = view.findViewById(R.id.date) as TextView
     selectedPersonRecyclerView = view.findViewById(R.id.personRecyclerView) as RecyclerView
     imagesRecyclerView = view.findViewById(R.id.imageRecyclerView) as RecyclerView
 
     title.textChanges().skip(1).map { it.toString() }.subscribe { presenter.setTaskTitle(it) }
     description.textChanges().skip(
         1).map { it.toString() }.subscribe { presenter.setTaskDescription(it) }
+    date.setOnClickListener {
+      router.pushController(
+          RouterTransaction.with(DateTimePickerController())
+              .popChangeHandler(DateTimePickerCircularRevealChangeHandler())
+              .pushChangeHandler(DateTimePickerCircularRevealChangeHandler())
+      )
+    }
 
     val addPersonButton = view.findViewById(R.id.addPerson)
     val personPickerContainer = view.findViewById(R.id.personPickerContainer) as ViewGroup
@@ -102,7 +114,7 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
 
     view.findViewById(R.id.addImage).setOnClickListener {
       val photoPickerIntent = Intent(Intent.ACTION_PICK)
-      photoPickerIntent.setType("image/*")
+      photoPickerIntent.type = "image/*"
       startActivityForResult(photoPickerIntent, PHOTO_INTENT_CODE)
     }
 
@@ -117,7 +129,8 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
 
     val imageManager = AdapterDelegatesManager<List<Uri>>()
         .addDelegate(
-            ImageAdapterDelegate(daggerComponent.picasso(), activity.layoutInflater, { showImageDetails(it) }))
+            ImageAdapterDelegate(daggerComponent.picasso(), activity.layoutInflater,
+                { showImageDetails(it) }))
     selectedImagesAdapter = ListDelegationAdapter(imageManager)
     imagesRecyclerView.adapter = selectedImagesAdapter
 

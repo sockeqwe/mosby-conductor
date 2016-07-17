@@ -7,7 +7,11 @@
   <string name="error">An unexpected error has occurred</string>
   <string name="create_task_title">Title</string>
   <string name="create_task_description">Description</string>
+  <string name="create_task_datetime">Click here to set date until done</string>
   <string name="persons">Persons</string>
   <string name="images">Images</string>
+  <string name="datetimepicker_next">Next</string>
+  <string name="datetimepicker_previous">Previous</string>
+  <string name="datetimepicker_finish">OK</string>
 
 </resources>

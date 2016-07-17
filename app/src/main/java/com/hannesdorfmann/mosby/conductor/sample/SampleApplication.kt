@@ -5,6 +5,7 @@ import android.content.Context
 import com.hannesdorfmann.mosby.conductor.sample.dagger.ApplicationComponent
 import com.hannesdorfmann.mosby.conductor.sample.dagger.ApplicationModule
 import com.hannesdorfmann.mosby.conductor.sample.dagger.DaggerApplicationComponent
+import com.jakewharton.threetenabp.AndroidThreeTen
 
 /**
  * Application class to integrate dagger
@@ -21,6 +22,11 @@ class SampleApplication : Application() {
       }
       return component!!
     }
+  }
+
+  override fun onCreate() {
+    super.onCreate()
+    AndroidThreeTen.init(this)
   }
 
 }
