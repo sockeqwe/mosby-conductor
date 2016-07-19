@@ -21,7 +21,7 @@ import com.hannesdorfmann.mosby.conductor.sample.R;
     extends AnimatorChangeHandler {
 
   public DateTimePickerCircularRevealChangeHandler() {
-    super(DEFAULT_ANIMATION_DURATION, true);
+    super(DEFAULT_ANIMATION_DURATION, false);
   }
 
   private Pair<Integer, Integer> getViewPosition(View fromView, View containerView) {
@@ -58,8 +58,9 @@ import com.hannesdorfmann.mosby.conductor.sample.R;
               PropertyValuesHolder.ofInt("alpha", 0, 180));
 
       AnimatorSet as = new AnimatorSet();
-      as.playTogether(ViewAnimationUtils.createCircularReveal(to.findViewById(R.id.contentView), mCx, mCy, 0, radius),
-          backgroundDimAnimator);
+      as.playTogether(
+          ViewAnimationUtils.createCircularReveal(to.findViewById(R.id.contentView), mCx, mCy, 0,
+              radius), backgroundDimAnimator);
 
       animator = as;
     } else if (!isPush && from != null) {
@@ -74,7 +75,9 @@ import com.hannesdorfmann.mosby.conductor.sample.R;
           ObjectAnimator.ofPropertyValuesHolder(from.getBackground(),
               PropertyValuesHolder.ofInt("alpha", 180, 0));
 
-      Animator circular = ViewAnimationUtils.createCircularReveal(from.findViewById(R.id.contentView), mCx, mCy, radius, 0);
+      Animator circular =
+          ViewAnimationUtils.createCircularReveal(from.findViewById(R.id.contentView), mCx, mCy,
+              radius, 0);
 
       AnimatorSet as = new AnimatorSet();
       as.playTogether(backgroundDimAnimator, circular);
