@@ -52,7 +52,7 @@ Presenter will be created right after `Controller.onCreateView()` but before `Co
 Presenter will be destroyed in `Controller.onDestroyView()` except screen orientation changes where the Presenter will not be destroyed and recreated but rather the view will only be detached (`presenter.detachView(true)`) and new view will be reattached.
 
 ## Example
-This repository contains a simple TO DO app, which is not implemented yet, because I'm waiting for some Conductor to implement some changes [#27](https://github.com/bluelinelabs/Conductor/issues/27).
+This repository contains a simple [TO DO app](https://github.com/sockeqwe/mosby-conductor/tree/master/app).
 
 ## License
 
