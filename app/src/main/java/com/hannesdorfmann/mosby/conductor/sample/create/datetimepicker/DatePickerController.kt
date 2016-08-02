@@ -20,7 +20,9 @@ class DatePickerController() : Controller() {
   }
 
   constructor(listenerController: DatePickedListner) : this() {
-    if (listenerController is Controller) targetController = listenerController
+    if (listenerController is Controller) {
+      targetController = listenerController
+    }
     else throw IllegalArgumentException(
         "The passed DatePickedListener must extend from Controller and implement DatePickedListener")
   }
