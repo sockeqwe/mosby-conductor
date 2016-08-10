@@ -48,6 +48,13 @@ public abstract class MvpLceController<CV extends View, M, V extends MvpLceView<
   protected CV contentView;
   protected TextView errorView;
 
+  public MvpLceController() {
+  }
+
+  public MvpLceController(Bundle args) {
+    super(args);
+  }
+
   @Override protected LifecycleListener getMosbyLifecycleListener() {
     return new MvpConductorLifecycleListener<V, P>(this) {
 

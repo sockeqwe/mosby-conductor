@@ -1,5 +1,6 @@
 package com.hannesdorfmann.mosby.mvp.conductor;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import com.bluelinelabs.conductor.Controller;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
@@ -21,6 +22,13 @@ public abstract class MvpController<V extends MvpView, P extends MvpPresenter<V>
   // Initializer block
   {
     addLifecycleListener(getMosbyLifecycleListener());
+  }
+
+  public MvpController() {
+  }
+
+  public MvpController(Bundle args) {
+    super(args);
   }
 
   /**

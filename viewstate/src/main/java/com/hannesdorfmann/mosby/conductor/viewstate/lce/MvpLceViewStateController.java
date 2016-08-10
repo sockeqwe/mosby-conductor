@@ -29,6 +29,13 @@ public abstract class MvpLceViewStateController<CV extends View, M, V extends Mv
   protected LceViewState<M, V> viewState;
   protected boolean restoringViewState = false;
 
+  public MvpLceViewStateController() {
+  }
+
+  public MvpLceViewStateController(Bundle args) {
+    super(args);
+  }
+
   @Override protected LifecycleListener getMosbyLifecycleListener() {
     return new MvpViewStateConductorLifecycleListener<V, P, LceViewState<M, V>>(this) {
 

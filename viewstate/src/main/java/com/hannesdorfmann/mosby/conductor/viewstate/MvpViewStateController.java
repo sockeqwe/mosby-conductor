@@ -1,5 +1,6 @@
 package com.hannesdorfmann.mosby.conductor.viewstate;
 
+import android.os.Bundle;
 import com.hannesdorfmann.mosby.conductor.viewstate.delegate.MvpViewStateConductorDelegateCallback;
 import com.hannesdorfmann.mosby.conductor.viewstate.delegate.MvpViewStateConductorLifecycleListener;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
@@ -8,7 +9,6 @@ import com.hannesdorfmann.mosby.mvp.conductor.MvpController;
 import com.hannesdorfmann.mosby.mvp.viewstate.ViewState;
 
 /**
- *
  * @author Hannes Dorfmann
  * @since 1.0
  */
@@ -17,6 +17,13 @@ public abstract class MvpViewStateController<V extends MvpView, P extends MvpPre
 
   protected VS viewState;
   protected boolean restoringViewState = false;
+
+  public MvpViewStateController() {
+  }
+
+  public MvpViewStateController(Bundle args) {
+    super(args);
+  }
 
   @Override protected LifecycleListener getMosbyLifecycleListener() {
     return new MvpViewStateConductorLifecycleListener<>(this);

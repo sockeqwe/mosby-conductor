@@ -17,8 +17,8 @@ Internal dependencies are Conductor 1.1.4 and Mosby 2.0.1
 For Conductor 2.x use:
 ```groovy
 dependencies {
-    compile 'com.hannesdorfmann.mosby:mvp-conductor:0.8.1'
-    compile 'com.hannesdorfmann.mosby:viewstate-conductor:0.8.1' // optional viewstate feature
+    compile 'com.hannesdorfmann.mosby:mvp-conductor:0.8.2'
+    compile 'com.hannesdorfmann.mosby:viewstate-conductor:0.8.2' // optional viewstate feature
 }
 ```
 Internal dependencies are Conductor 2.0.1 and Mosby 2.0.1
