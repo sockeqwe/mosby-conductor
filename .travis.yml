@@ -4,7 +4,9 @@ android:
   - tools
   - build-tools-25.0.1
   - extra-android-m2repository
-  - android-23
+  - android-25
+  - platform-tools
+
 before_install:
 - chmod +x .buildscript/deploy_snapshot.sh
 jdk:
