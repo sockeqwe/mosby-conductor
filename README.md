@@ -6,7 +6,7 @@ This plugin for using [Mosby](https://github.com/sockeqwe/mosby) with [Conductor
 [![Build Status](https://travis-ci.org/sockeqwe/mosby-conductor.svg?branch=master)](https://travis-ci.org/sockeqwe/mosby-conductor)
 
 
-For Conductor 2.x with Mosby 3.x use:
+For Conductor 2.x with Mosby 3.x use (please note that the group id has changed to com.hannesdorfmann.mosby**3**):
 ```groovy
 dependencies {
     compile 'com.hannesdorfmann.mosby3:mvp-conductor:3.0.0-alhpa1'
