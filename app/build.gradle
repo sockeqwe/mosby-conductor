@@ -32,7 +32,7 @@ android {
   compileOptions.incremental = false
 
   defaultConfig {
-    applicationId "com.hannesdorfmann.mosby.conductor.sample"
+    applicationId "com.hannesdorfmann.mosby3.conductor.sample"
     minSdkVersion 19
     targetSdkVersion rootProject.ext.targetSdk
     versionCode 1

@@ -35,6 +35,6 @@ dependencies {
   
   compile "com.android.support:appcompat-v7:$supportLib"
 
-  compile "com.hannesdorfmann.mosby:mvp:$mosby"
+  compile "com.hannesdorfmann.mosby3:mvp:$mosby"
   compile "com.bluelinelabs:conductor:$conductor"
 }

@@ -34,5 +34,5 @@ dependencies {
   testCompile "org.powermock:powermock-module-junit4:$powermock"
 
   compile project(':mvp')
-  compile "com.hannesdorfmann.mosby:viewstate:$mosby"
+  compile "com.hannesdorfmann.mosby3:viewstate:$mosby"
 }

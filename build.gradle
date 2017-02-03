@@ -21,14 +21,14 @@ allprojects {
 
 ext {
 
-  compileSdkVersion = 23
-  buildToolsVersion = "23.0.3"
+  compileSdkVersion = 25
+  buildToolsVersion = "25.0.1"
   minSdk = 16
-  targetSdk = 23
+  targetSdk = 25
 
-  mosby = '2.0.1'
-  conductor = '2.0.1'
-  supportLib = '24.0.0'
+  mosby = '3.0.0-alpha4'
+  conductor = '2.1.0'
+  supportLib = '25.1.1'
   mockito = '1.10.19'
   powermock='1.6.4'
   junit = '4.12'
