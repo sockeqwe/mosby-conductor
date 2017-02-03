@@ -8,7 +8,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 /**
  * @author Hannes Dorfmann
  */
-@RunWith(PowerMockRunner.class) @PrepareForTest(Controller.class)
+//@RunWith(PowerMockRunner.class) @PrepareForTest(Controller.class)
 public class MviConductorLifecycleListenerTest {
 
   // TODO write unit test
