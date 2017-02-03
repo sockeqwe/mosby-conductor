@@ -5,26 +5,54 @@ This plugin for using [Mosby](https://github.com/sockeqwe/mosby) with [Conductor
 ## Dependencies
 [![Build Status](https://travis-ci.org/sockeqwe/mosby-conductor.svg?branch=master)](https://travis-ci.org/sockeqwe/mosby-conductor)
 
-For Conductor 1.x use:
+
+For Conductor 2.x with Mosby 3.x use:
 ```groovy
 dependencies {
-    compile 'com.hannesdorfmann.mosby:mvp-conductor:0.7.0'
-    compile 'com.hannesdorfmann.mosby:viewstate-conductor:0.7.0' // optional viewstate feature
+    compile 'com.hannesdorfmann.mosby:mvp-conductor:3.0.0-alhpa1'
+    // or
+    compile 'com.hannesdorfmann.mosby:viewstate-conductor:3.0.0-alhpa1' // optional viewstate feature
+    // or
+    compile 'com.hannesdorfmann.mosby:mvi-conductor:3.0.0-alhpa1' // optional viewstate feature
 }
 ```
-Internal dependencies are Conductor 1.1.4 and Mosby 2.0.1
+Internal dependencies are Conductor 2.0.1 and Mosby 3.0.0
 
-For Conductor 2.x use:
+
+For Conductor 2.x with Mosby 2.x use:
 ```groovy
 dependencies {
     compile 'com.hannesdorfmann.mosby:mvp-conductor:0.8.2'
+    // or
     compile 'com.hannesdorfmann.mosby:viewstate-conductor:0.8.2' // optional viewstate feature
 }
 ```
 Internal dependencies are Conductor 2.0.1 and Mosby 2.0.1
 
+### Snapshot
+You also have to add the url to the snapshot repository:
+
+```groovy
+dependencies {
+    compile 'com.hannesdorfmann.mosby:mvp-conductor:3.0.0-SNAPSHOT'
+    // or
+    compile 'com.hannesdorfmann.mosby:viewstate-conductor:3.0.0-SNAPSHOT' // optional viewstate feature
+    // or
+    compile 'com.hannesdorfmann.mosby:mvi-conductor:3.0.0-SNAPSHOT' // optional viewstate feature
+}
+```
+
+```gradle
+allprojects {
+  repositories {
+    ...
+
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+```
+
 ## Usage
-Extend your own Conductor `Controller` from `MvpController` or from `MvpViewStateController` if you want to use ViewState feature.
+Extend your own Conductor `Controller` from `MvpController` or from `MvpViewStateController` if you want to use ViewState feature or from  or `MviController` if you want to use the Model-View-Intent feature.
 
 There are also two base LCE (Loading-Content-Error) Controllers you can extend from: `MvpLceController` and `MvpLceViewStateController`.
 
@@ -44,8 +72,8 @@ class MyController extends Controller
 
 }
 ```
-
 If you need ViewState support simply use `MvpViewStateConductorLifecycleListener` and `MvpViewStateConductorDelegateCallback`.
+Do the same for  Model-View-Intent but  use `MviConductorLifecycleListener` and `MviConductorDelegateCallback`.
 
 ## Lifecycle
 Presenter will be created right after `Controller.onCreateView()` but before `Controller.onAttach()`. So in `onAttach()` presenter is ready to be used.
