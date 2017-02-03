@@ -9,11 +9,11 @@ This plugin for using [Mosby](https://github.com/sockeqwe/mosby) with [Conductor
 For Conductor 2.x with Mosby 3.x use:
 ```groovy
 dependencies {
-    compile 'com.hannesdorfmann.mosby:mvp-conductor:3.0.0-alhpa1'
+    compile 'com.hannesdorfmann.mosby3:mvp-conductor:3.0.0-alhpa1'
     // or
-    compile 'com.hannesdorfmann.mosby:viewstate-conductor:3.0.0-alhpa1' // optional viewstate feature
+    compile 'com.hannesdorfmann.mosby3:viewstate-conductor:3.0.0-alhpa1' // optional viewstate feature
     // or
-    compile 'com.hannesdorfmann.mosby:mvi-conductor:3.0.0-alhpa1' // optional viewstate feature
+    compile 'com.hannesdorfmann.mosby3:mvi-conductor:3.0.0-alhpa1' // optional viewstate feature
 }
 ```
 Internal dependencies are Conductor 2.0.1 and Mosby 3.0.0
@@ -30,18 +30,19 @@ dependencies {
 Internal dependencies are Conductor 2.0.1 and Mosby 2.0.1
 
 ### Snapshot
-You also have to add the url to the snapshot repository:
+Latest snapshot from current development:
 
 ```groovy
 dependencies {
-    compile 'com.hannesdorfmann.mosby:mvp-conductor:3.0.0-SNAPSHOT'
+    compile 'com.hannesdorfmann.mosby3:mvp-conductor:3.0.0-SNAPSHOT'
     // or
-    compile 'com.hannesdorfmann.mosby:viewstate-conductor:3.0.0-SNAPSHOT' // optional viewstate feature
+    compile 'com.hannesdorfmann.mosby3:viewstate-conductor:3.0.0-SNAPSHOT' // optional viewstate feature
     // or
-    compile 'com.hannesdorfmann.mosby:mvi-conductor:3.0.0-SNAPSHOT' // optional viewstate feature
+    compile 'com.hannesdorfmann.mosby3:mvi-conductor:3.0.0-SNAPSHOT' // optional viewstate feature
 }
 ```
 
+You also have to add the url to the snapshot repository:
 ```gradle
 allprojects {
   repositories {
