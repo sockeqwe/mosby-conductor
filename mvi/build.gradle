@@ -1,0 +1,43 @@
+apply plugin: 'com.android.library'
+apply from: '../maven-push.gradle'
+apply from: '../findbugs.gradle'
+
+android {
+
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+
+  defaultConfig {
+    minSdkVersion rootProject.ext.minSdk
+    targetSdkVersion rootProject.ext.targetSdk
+    versionName project.VERSION_NAME
+    versionCode Integer.parseInt(project.VERSION_CODE)
+
+    packagingOptions {
+      exclude 'LICENSE.txt'
+    }
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+//  testCompile "org.mockito:mockito-all:$mockito"
+//  testCompile "org.powermock:powermock-mockito-release-full:$powermock"
+
+  testCompile "org.mockito:mockito-all:$mockito"
+  testCompile "org.powermock:powermock-mockito-release-full:$powermock"
+  testCompile "org.powermock:powermock-api-mockito:$powermock"
+  testCompile "org.powermock:powermock-module-junit4:$powermock"
+
+  compile "com.android.support:appcompat-v7:$supportLib"
+
+  compile "com.hannesdorfmann.mosby3:mvi-common:$mosby"
+  compile "com.bluelinelabs:conductor:$conductor"
+
+}

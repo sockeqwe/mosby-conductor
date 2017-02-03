@@ -1,6 +1,6 @@
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hannesdorfmann.mosby3.conductor.viewstate">
+    package="com.hannesdorfmann.mosby.mvi.conductor">
 
-  <application />
+  <application/>
+
 </manifest>

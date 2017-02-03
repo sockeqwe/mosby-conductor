@@ -1,1 +1,1 @@
-include ':app', ':mvp', ':viewstate'
+include ':app', ':mvp', ':viewstate', ':mvi'
