@@ -13,7 +13,7 @@ dependencies {
     // or
     compile 'com.hannesdorfmann.mosby3:viewstate-conductor:3.0.0-alhpa1' // optional viewstate feature
     // or
-    compile 'com.hannesdorfmann.mosby3:mvi-conductor:3.0.0-alhpa1' // optional viewstate feature
+    compile 'com.hannesdorfmann.mosby3:mvi-conductor:3.0.0-alhpa1' // Model-VIew-Intent
 }
 ```
 Internal dependencies are Conductor 2.0.1 and Mosby 3.0.0
@@ -38,7 +38,7 @@ dependencies {
     // or
     compile 'com.hannesdorfmann.mosby3:viewstate-conductor:3.0.0-SNAPSHOT' // optional viewstate feature
     // or
-    compile 'com.hannesdorfmann.mosby3:mvi-conductor:3.0.0-SNAPSHOT' // optional viewstate feature
+    compile 'com.hannesdorfmann.mosby3:mvi-conductor:3.0.0-SNAPSHOT' // Model-VIew-Intent
 }
 ```
 
