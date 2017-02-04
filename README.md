@@ -9,11 +9,11 @@ This plugin for using [Mosby](https://github.com/sockeqwe/mosby) with [Conductor
 For Conductor 2.x with Mosby 3.x use (please note that the group id has changed to com.hannesdorfmann.mosby**3**):
 ```groovy
 dependencies {
-    compile 'com.hannesdorfmann.mosby3:mvp-conductor:3.0.0-alhpa1'
+    compile 'com.hannesdorfmann.mosby3:mvp-conductor:3.0.0-alpha1'
     // or
-    compile 'com.hannesdorfmann.mosby3:viewstate-conductor:3.0.0-alhpa1' // optional viewstate feature
+    compile 'com.hannesdorfmann.mosby3:viewstate-conductor:3.0.0-alpha1' // optional viewstate feature
     // or
-    compile 'com.hannesdorfmann.mosby3:mvi-conductor:3.0.0-alhpa1' // Model-VIew-Intent
+    compile 'com.hannesdorfmann.mosby3:mvi-conductor:3.0.0-alpha1' // Model-VIew-Intent
 }
 ```
 Internal dependencies are Conductor 2.0.1 and Mosby 3.0.0
