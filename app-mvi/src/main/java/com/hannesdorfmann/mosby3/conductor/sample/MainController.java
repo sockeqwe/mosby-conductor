@@ -82,6 +82,7 @@ public class MainController extends RestoreViewOnCreateMviController<MainControl
 
     public Observable<Boolean> loadData()
     {
+        // this is a cold observable, we only want to emit the flag to start data loading, if we are NOT restoring the view state
         return Observable.just(!mRestoringViewState)
                 .filter(value -> true)
                 .doOnComplete(() -> Log.d(TAG, "loadDataIntent"));
