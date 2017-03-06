@@ -29,6 +29,12 @@ public abstract class MviController<V extends MvpView, P extends MviPresenter<V,
   }
 
   /**
+   * Used to determine whether or not this controller is rendering the view (ViewState) again
+   * because the view is reattached.
+   */
+  protected boolean isRestoringViewState = false;
+
+  /**
    * This method is for internal purpose only.
    * <p><b>Do not override this until you have a very good reason</b></p>
    *
@@ -47,5 +53,9 @@ public abstract class MviController<V extends MvpView, P extends MviPresenter<V,
       Log.e(this.toString(), msg);
       throw new RuntimeException(msg, e);
     }
+  }
+
+  @Override public void setRestoringViewState(boolean restoringViewState) {
+    isRestoringViewState = restoringViewState;
   }
 }
