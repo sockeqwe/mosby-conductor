@@ -37,4 +37,5 @@ dependencies {
 
   compile "com.hannesdorfmann.mosby3:mvp:$mosby"
   compile "com.bluelinelabs:conductor:$conductor"
+  compile "com.hannesdorfmann.mosby3:mvp-lce:$mosby"
 }
