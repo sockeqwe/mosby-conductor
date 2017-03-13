@@ -71,8 +71,7 @@ Presenter will be created right after `Controller.onCreateView()` but before `Co
 View will be detached from Presenter in `Controller.onDestroyView()` by calling `presenter.detachView(true)` (`true` if view is just detached temporarily i.e. screen orientation change, `false` if view is detached permanently because `Controller` will be destroyed)
 
 ## Example
-This repository contains a simple [TO DO app](https://github.com/sockeqwe/mosby-conductor/tree/master/app), which makes use of Conductor's [Nested backstacks](https://github.com/bluelinelabs/Conductor/issues/27).
-
+This repository contains a simple [TO DO List app](https://github.com/sockeqwe/mosby-conductor/tree/master/app).
 ## License
 
 ```
