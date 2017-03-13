@@ -68,7 +68,7 @@ Do the same for  Model-View-Intent but  use `MviConductorLifecycleListener` and 
 
 ## Lifecycle
 Presenter will be created right after `Controller.onCreateView()` but before `Controller.onAttach()`. So in `onAttach()` presenter is ready to be used.
-Presenter will be destroyed in `Controller.onDestroyView()` except screen orientation changes where the Presenter will not be destroyed and recreated but rather the view will only be detached (`presenter.detachView(true)`) and new view will be reattached.
+View will be detached from Presenter in `Controller.onDestroyView()` by calling `presenter.detachView(true)` (`true` if view is just detached temporarily i.e. screen orientation change, `false` if view is detached permanently because `Controller` will be destroyed)
 
 ## Example
 This repository contains a simple [TO DO app](https://github.com/sockeqwe/mosby-conductor/tree/master/app), which makes use of Conductor's [Nested backstacks](https://github.com/bluelinelabs/Conductor/issues/27).
