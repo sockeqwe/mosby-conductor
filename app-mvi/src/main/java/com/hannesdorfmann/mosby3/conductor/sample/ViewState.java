@@ -1,6 +1,6 @@
 package com.hannesdorfmann.mosby3.conductor.sample;
 
-import com.android.annotations.Nullable;
+import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
 
 /**

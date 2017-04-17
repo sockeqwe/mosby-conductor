@@ -5,8 +5,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.3.0'
-    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    classpath 'com.android.tools.build:gradle:2.3.1'
     classpath 'me.tatarka:gradle-retrolambda:3.3.0'
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
@@ -27,9 +26,9 @@ ext {
   minSdk = 16
   targetSdk = 25
 
-  mosby = '3.0.0'
+  mosby = '3.0.2'
   conductor = '2.1.1'
-  supportLib = '25.2.0'
+  supportLib = '25.3.1'
   mockito = '1.10.19'
   powermock='1.6.4'
   junit = '4.12'
