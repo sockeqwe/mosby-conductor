@@ -17,7 +17,6 @@ dependencies {
 }
 ```
 
-
 ### Snapshot
 Latest snapshot (from master branch):
 
@@ -36,9 +35,8 @@ You also have to add the url to the snapshot repository:
 ```gradle
 allprojects {
   repositories {
-    ...
-
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+  }
 }
 ```
 
