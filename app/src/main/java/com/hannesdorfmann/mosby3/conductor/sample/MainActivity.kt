@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(layout.activity_main)
 
-    val container = findViewById(id.container) as ViewGroup
+    val container = findViewById<ViewGroup>(id.container) as ViewGroup
 
     router = Conductor.attachRouter(this, container, savedInstanceState)
     if (!router.hasRootController()) {

@@ -1,43 +1,53 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-  repositories {
-    jcenter()
-    google()
-  }
-  dependencies {
-    classpath 'com.android.tools.build:gradle:3.0.0'
-    classpath 'me.tatarka:gradle-retrolambda:3.3.0'
-    // NOTE: Do not place your application dependencies here; they belong
-    // in the individual module build.gradle files
-  }
+
+    ext.kotlin_version = '1.1.60'
+
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0'
+        repositories {
+            mavenCentral()
+            maven {
+                url "https://dl.bintray.com/kotlin/kotlin-eap/"
+            }
+        }
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'me.tatarka:gradle-retrolambda:3.3.0'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
 }
 
 allprojects {
-  repositories {
-    jcenter()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-    google()
-  }
+    repositories {
+        jcenter()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        google()
+    }
 }
 
 ext {
 
-  compileSdkVersion = 26
-  buildToolsVersion = "26.0.2"
-  minSdk = 16
-  targetSdk = 26
+    compileSdkVersion = 26
+    buildToolsVersion = "26.0.2"
+    minSdk = 16
+    targetSdk = 26
 
-  mosby = '3.1.0'
-  conductor = '2.1.4'
-  supportLib = '26.0.2'
-  mockito = '1.10.19'
-  powermock='1.6.4'
-  junit = '4.12'
-  robolectric = '3.0'
+    mosby = '3.1.0'
+    conductor = '2.1.4'
+    supportLib = '26.0.2'
+    mockito = '1.10.19'
+    powermock = '1.6.4'
+    junit = '4.12'
+    robolectric = '3.0'
 
 }
 
 task clean(type: Delete) {
-  delete rootProject.buildDir
+    delete rootProject.buildDir
 }
