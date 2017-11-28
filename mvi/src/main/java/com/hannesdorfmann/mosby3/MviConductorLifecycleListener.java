@@ -113,23 +113,24 @@ public class MviConductorLifecycleListener<V extends MvpView, P extends MviPrese
   }
 
   @Override public void preDestroyView(@NonNull Controller controller, @NonNull View view) {
-    boolean retainPresenterInstance = retainPresenterInstance(keepPresenterInstance, controller);
-    presenter.detachView(retainPresenterInstance);
+    presenter.detachView();
 
     if (DEBUG) {
       Log.d(DEBUG_TAG, "detached MvpView from Presenter. MvpView "
           + callback.getMvpView()
           + "   Presenter: "
           + presenter);
-      Log.d(DEBUG_TAG,
-          "Retaining presenter instance: " + retainPresenterInstance + ". Presenter: " + presenter);
-    }
-    if (!retainPresenterInstance) {
-      presenter = null;
     }
   }
 
   @Override public void postDestroy(@NonNull Controller controller) {
+    if (DEBUG) {
+      Log.d(DEBUG_TAG, "Presenter destroyed because View destroyed. MvpView "
+              + callback.getMvpView()
+              + "   Presenter: "
+              + presenter);
+    }
+    presenter.destroy();
     presenter = null;
     callback = null;
   }

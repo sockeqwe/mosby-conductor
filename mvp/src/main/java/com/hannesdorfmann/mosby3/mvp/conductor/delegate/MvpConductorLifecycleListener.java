@@ -70,6 +70,17 @@ public class MvpConductorLifecycleListener<V extends MvpView, P extends MvpPrese
       throw new NullPointerException(
           "Presenter returned from getPresenter() is null in " + callback);
     }
-    presenter.detachView(controller.getActivity().isChangingConfigurations());
+    presenter.detachView();
+  }
+
+  @Override
+  public void postDestroy(@NonNull Controller controller) {
+    super.postDestroy(controller);
+    P presenter = getCallback().getPresenter();
+    if (presenter == null) {
+      throw new NullPointerException(
+              "Presenter returned from getPresenter() is null in " + callback);
+    }
+    presenter.destroy();
   }
 }
