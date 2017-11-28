@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.RouterTransaction
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 import com.hannesdorfmann.mosby3.mvp.MvpView
@@ -22,6 +23,7 @@ class MvpTestController(bundle: Bundle) : MvpController<MvpView, MvpTestPresente
 
     init {
         id = bundle.getInt("CONTROLLER_ID")
+       // retainViewMode = Controller.RetainViewMode.RETAIN_DETACH
     }
 
     constructor(id: Int) : this(Bundle().apply { putInt("CONTROLLER_ID", id) })
@@ -29,6 +31,7 @@ class MvpTestController(bundle: Bundle) : MvpController<MvpView, MvpTestPresente
     private var nextControllerButton: Button? = null
 
     override fun createPresenter(): MvpTestPresenter = MvpTestPresenter(id)
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         Log.d(TAG, "Controller$id.onCreateView()")
         val view = inflater.inflate(R.layout.controller, container, false)
