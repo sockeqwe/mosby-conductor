@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
-import butterknife.bindView
 import com.hannesdorfmann.adapterdelegates2.AbsListItemAdapterDelegate
 import com.hannesdorfmann.mosby3.conductor.sample.R
 import com.hannesdorfmann.mosby3.conductor.sample.R.id
@@ -16,6 +15,7 @@ import com.hannesdorfmann.mosby3.conductor.sample.R.layout
 import com.hannesdorfmann.mosby3.conductor.sample.model.tasks.Task
 import com.hannesdorfmann.mosby3.conductor.sample.tasks.TaskListItem
 import com.hannesdorfmann.mosby3.conductor.sample.tasks.adapterdelegates.CompletedTaskAdapterDelegate.CompletedTaskViewHolder
+import kotterknife.bindView
 
 /**
  * AdapterDelegate that represents an Task that is open (not completed yet)

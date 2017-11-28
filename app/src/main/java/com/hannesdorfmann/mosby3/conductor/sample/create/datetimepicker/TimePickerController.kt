@@ -29,7 +29,7 @@ class TimePickerController() : Controller() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
     val view = inflater.inflate(layout.controller_time_picker, container, false)
-    val timePicker = view.findViewById(id.timePicker) as TimePicker
+    val timePicker = view.findViewById<TimePicker>(id.timePicker) as TimePicker
     timePicker.setOnTimeChangedListener { timePicker, hour, minute ->
       (targetController as TimePickedListner).onTimePicked(hour, minute)
     }

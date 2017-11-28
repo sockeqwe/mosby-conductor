@@ -38,7 +38,7 @@ class ContactsPickerController : ContactsPickerView, MvpLceViewStateController<C
 
     val view = inflater.inflate(layout.controller_contacts_picker, container, false)
 
-    val recyclerView = view.findViewById(id.recyclerView) as RecyclerView
+    val recyclerView = view.findViewById<RecyclerView>(id.recyclerView) as RecyclerView
     recyclerView.layoutManager = LinearLayoutManager(activity)
 
 

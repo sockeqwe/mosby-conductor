@@ -43,12 +43,12 @@ class TasksController : TasksView, MvpLceViewStateController<RecyclerView, List<
     val view = inflater.inflate(
         layout.controller_tasks, container, false)
 
-    val addTask = view.findViewById(id.addTask)
+    val addTask = view.findViewById<View>(id.addTask)
     addTask.setOnClickListener {
       navigator.showCreateTask(addTask)
     }
 
-    val contentView = view.findViewById(id.contentView) as RecyclerView
+    val contentView = view.findViewById<RecyclerView>(id.contentView) as RecyclerView
 
     // Setup adapter
     val delegatesManager = AdapterDelegatesManager<List<TaskListItem>>()

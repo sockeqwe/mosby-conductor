@@ -91,11 +91,11 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
     val view = inflater.inflate(layout.controller_create_task, container, false)
 
-    title = view.findViewById(id.title) as EditText
-    description = view.findViewById(id.description) as EditText
-    date = view.findViewById(id.date) as TextView
-    selectedPersonRecyclerView = view.findViewById(id.personRecyclerView) as RecyclerView
-    imagesRecyclerView = view.findViewById(id.imageRecyclerView) as RecyclerView
+    title = view.findViewById<EditText>(id.title) as EditText
+    description = view.findViewById<EditText>(id.description) as EditText
+    date = view.findViewById<TextView>(id.date) as TextView
+    selectedPersonRecyclerView = view.findViewById<RecyclerView>(id.personRecyclerView) as RecyclerView
+    imagesRecyclerView = view.findViewById<RecyclerView>(id.imageRecyclerView) as RecyclerView
 
     title.textChanges().skip(1).map { it.toString() }.subscribe { presenter.setTaskTitle(it) }
     description.textChanges().skip(
@@ -119,8 +119,8 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
       )
     }
 
-    val addPersonButton = view.findViewById(id.addPerson)
-    val personPickerContainer = view.findViewById(id.personPickerContainer) as ViewGroup
+    val addPersonButton = view.findViewById<View>(id.addPerson)
+    val personPickerContainer = view.findViewById<View>(id.personPickerContainer) as ViewGroup
     addPersonButton.setOnClickListener {
       val childRouter = getChildRouter(personPickerContainer, null)
       if (!childRouter.hasRootController()) {
@@ -131,7 +131,7 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
       }
     }
 
-    view.findViewById(id.addImage).setOnClickListener {
+    view.findViewById<View>(id.addImage).setOnClickListener {
       val photoPickerIntent = Intent(Intent.ACTION_PICK)
       photoPickerIntent.type = "image/*"
       startActivityForResult(photoPickerIntent, PHOTO_INTENT_CODE)

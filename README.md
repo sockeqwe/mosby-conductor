@@ -9,11 +9,11 @@ Plugin for using [Mosby](https://github.com/sockeqwe/mosby) with [Conductor](htt
 For Conductor 2.x with Mosby 3.x use:
 ```groovy
 dependencies {
-    compile 'com.hannesdorfmann.mosby3:mvp-conductor:3.0.0'
+    compile 'com.hannesdorfmann.mosby3:mvp-conductor:3.1.0'
     // or
-    compile 'com.hannesdorfmann.mosby3:viewstate-conductor:3.0.0' // optional viewstate feature
+    compile 'com.hannesdorfmann.mosby3:viewstate-conductor:3.1.0' // optional viewstate feature
     // or
-    compile 'com.hannesdorfmann.mosby3:mvi-conductor:3.0.0' // Model-View-Intent
+    compile 'com.hannesdorfmann.mosby3:mvi-conductor:3.1.0' // Model-View-Intent
 }
 ```
 
@@ -23,11 +23,11 @@ Latest snapshot (from master branch):
 
 ```groovy
 dependencies {
-    compile 'com.hannesdorfmann.mosby3:mvi-conductor:3.0.1-SNAPSHOT' // Model-View-Intent
+    compile 'com.hannesdorfmann.mosby3:mvi-conductor:3.1.1-SNAPSHOT' // Model-View-Intent
     // or
-    compile 'com.hannesdorfmann.mosby3:mvp-conductor:3.0.1-SNAPSHOT'
+    compile 'com.hannesdorfmann.mosby3:mvp-conductor:3.1.1-SNAPSHOT'
     // or
-    compile 'com.hannesdorfmann.mosby3:viewstate-conductor:3.0.1-SNAPSHOT' // optional viewstate feature
+    compile 'com.hannesdorfmann.mosby3:viewstate-conductor:3.1.1-SNAPSHOT' // optional viewstate feature
 
 }
 ```

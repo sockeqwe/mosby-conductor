@@ -43,10 +43,10 @@ class DateTimePickerController : Controller(), DatePickedListner, TimePickedList
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
     val view = inflater.inflate(layout.controller_datetime_picker, container, false)
-    viewPager = view.findViewById(id.viewPager) as ViewPager
-    val circleIndicator = view.findViewById(id.circleIndicator) as CircleIndicator
-    backButton = view.findViewById(id.backButton) as Button
-    nextButton = view.findViewById(id.nextFinishButton) as Button
+    viewPager = view.findViewById<ViewPager>(id.viewPager) as ViewPager
+    val circleIndicator = view.findViewById<CircleIndicator>(id.circleIndicator) as CircleIndicator
+    backButton = view.findViewById<Button>(id.backButton) as Button
+    nextButton = view.findViewById<Button>(id.nextFinishButton) as Button
 
     // Init listeners etc.
     viewPager.adapter = object : ControllerPagerAdapter(this, false) {

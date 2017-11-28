@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import kotterknife.bindView
 import com.hannesdorfmann.adapterdelegates2.AbsListItemAdapterDelegate
 import com.hannesdorfmann.mosby3.conductor.sample.R
 import com.hannesdorfmann.mosby3.conductor.sample.model.contacts.Contact
@@ -40,7 +41,7 @@ class ContactAdapterDelegate(private val inflater: LayoutInflater, private val s
         selectionListener(contact)
       }
 
-      name = v.findViewById(id.name) as TextView
+      name = v.findViewById<TextView>(id.name) as TextView
     }
 
   }

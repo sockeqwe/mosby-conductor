@@ -32,7 +32,7 @@ class DatePickerController() : Controller() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
     val view = inflater.inflate(layout.controller_date_picker, container, false)
-    val datePicker = view.findViewById(id.datePicker) as DatePicker
+    val datePicker = view.findViewById<DatePicker>(id.datePicker) as DatePicker
     val now = ZonedDateTime.now()
     datePicker.minDate = now.toEpochSecond() * 1000L
 
