@@ -2,10 +2,13 @@ package com.hannesdorfmann.mosby3.mvp.conductor.delegate;
 
 import android.app.Activity;
 import android.view.View;
+
 import com.bluelinelabs.conductor.Controller;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpView;
+
 import junit.framework.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -138,7 +141,7 @@ public class MvpConductorLifecycleListenerTest {
 
     // Detach
     lifecycleListener.preDestroyView(controller, view);
-    Mockito.verify(presenter, Mockito.times(1)).detachView(false);
+    Mockito.verify(presenter, Mockito.times(1)).detachView();
   }
 
   @Test public void attachDetachReattachViewFromPresenterRetaining() {
@@ -167,8 +170,7 @@ public class MvpConductorLifecycleListenerTest {
 
     // Detach
     lifecycleListener.preDestroyView(controller, view);
-    Mockito.verify(presenter, Mockito.times(1)).detachView(true);
-
+    Mockito.verify(presenter, Mockito.times(1)).detachView();
 
     // Reattach
     lifecycleListener.postCreateView(controller, view);
