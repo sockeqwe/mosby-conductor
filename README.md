@@ -69,7 +69,11 @@ Presenter will be created right after `Controller.onCreateView()` but before `Co
 View will be detached from Presenter in `Controller.onDestroyView()` by calling `presenter.detachView(true)` (`true` if view is just detached temporarily i.e. screen orientation change, `false` if view is detached permanently because `Controller` will be destroyed)
 
 ## Example
-This repository contains a simple [TO DO List app](https://github.com/sockeqwe/mosby-conductor/tree/master/app).
+
+There is a [nice external repository](https://github.com/jshvarts/MosbyMVP) that shows how to use Mosby-Conductor. All credit goes to [James Shvarts](https://github.com/jshvarts). 
+
+This repository contains a simple [TO DO List app](https://github.com/sockeqwe/mosby-conductor/tree/master/app) which is still work in progress.
+
 ## License
 
 ```
