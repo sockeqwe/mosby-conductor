@@ -77,10 +77,8 @@ public class MvpConductorLifecycleListener<V extends MvpView, P extends MvpPrese
   public void postDestroy(@NonNull Controller controller) {
     super.postDestroy(controller);
     P presenter = getCallback().getPresenter();
-    if (presenter == null) {
-      throw new NullPointerException(
-              "Presenter returned from getPresenter() is null in " + callback);
+    if (presenter != null) {
+      presenter.destroy();
     }
-    presenter.destroy();
   }
 }
