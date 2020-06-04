@@ -1,6 +1,6 @@
 package com.hannesdorfmann.mosby3.conductor.viewstate.delegate;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpView;
 import com.hannesdorfmann.mosby3.mvp.conductor.delegate.MvpConductorDelegateCallback;

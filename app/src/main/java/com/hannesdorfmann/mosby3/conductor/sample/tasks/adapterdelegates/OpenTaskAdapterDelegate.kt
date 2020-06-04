@@ -1,15 +1,13 @@
 package com.hannesdorfmann.mosby3.conductor.sample.tasks.adapterdelegates
 
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import kotterknife.bindView
 import com.hannesdorfmann.adapterdelegates2.AbsListItemAdapterDelegate
-import com.hannesdorfmann.mosby3.conductor.sample.R
 import com.hannesdorfmann.mosby3.conductor.sample.R.id
 import com.hannesdorfmann.mosby3.conductor.sample.R.layout
 import com.hannesdorfmann.mosby3.conductor.sample.model.tasks.Task
@@ -39,7 +37,7 @@ class OpenTaskAdapterDelegate(
     vh.title.text = item.title
   }
 
-  inner class OpenTaskViewHolder(v: View) : ViewHolder(v) {
+  inner class OpenTaskViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
     lateinit var task: Task
     val checkbox by bindView<CheckBox>(id.checkbox)

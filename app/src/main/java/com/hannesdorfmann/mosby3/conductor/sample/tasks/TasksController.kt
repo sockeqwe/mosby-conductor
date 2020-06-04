@@ -1,13 +1,13 @@
 package com.hannesdorfmann.mosby3.conductor.sample.tasks
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates2.AdapterDelegatesManager
-import com.hannesdorfmann.mosby3.conductor.sample.R
 import com.hannesdorfmann.mosby3.conductor.sample.daggerComponent
 import com.hannesdorfmann.mosby3.conductor.sample.navigator
 import com.hannesdorfmann.mosby3.conductor.sample.tasks.adapterdelegates.CompletedTaskAdapterDelegate
@@ -38,10 +38,9 @@ class TasksController : TasksView, MvpLceViewStateController<RecyclerView, List<
     Log.d("Test", "loadData($pullToRefresh)")
     presenter.getTasks()
   }
-
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedViewState: Bundle?): View {
     val view = inflater.inflate(
-        layout.controller_tasks, container, false)
+            layout.controller_tasks, container, false)
 
     val addTask = view.findViewById<View>(id.addTask)
     addTask.setOnClickListener {
@@ -52,9 +51,9 @@ class TasksController : TasksView, MvpLceViewStateController<RecyclerView, List<
 
     // Setup adapter
     val delegatesManager = AdapterDelegatesManager<List<TaskListItem>>()
-        .addDelegate(CompletedTaskAdapterDelegate(activity!!.layoutInflater, { }, {}))
-        .addDelegate(OpenTaskAdapterDelegate(activity!!.layoutInflater, {}, {}))
-        .addDelegate(TaskSectionAdapterDelegate(activity!!.layoutInflater))
+            .addDelegate(CompletedTaskAdapterDelegate(activity!!.layoutInflater, { }, {}))
+            .addDelegate(OpenTaskAdapterDelegate(activity!!.layoutInflater, {}, {}))
+            .addDelegate(TaskSectionAdapterDelegate(activity!!.layoutInflater))
 
     adapter = TasksAdapter(delegatesManager);
 
@@ -64,12 +63,14 @@ class TasksController : TasksView, MvpLceViewStateController<RecyclerView, List<
     return view
   }
 
+
   override fun createPresenter(): TasksPresenter = daggerComponent.tasksPresenter()
 
   override fun getErrorMessage(e: Throwable?, pullToRefresh: Boolean) = resources!!.getString(
       string.error)
 
   override fun createViewState(): LceViewState<List<TaskListItem>, TasksView> = RetainingLceViewState()
+
 
   override fun getData(): List<TaskListItem> = adapter.getItems()
 }

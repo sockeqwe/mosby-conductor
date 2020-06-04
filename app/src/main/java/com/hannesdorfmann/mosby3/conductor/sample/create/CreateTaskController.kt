@@ -5,20 +5,19 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.hannesdorfmann.adapterdelegates2.AdapterDelegatesManager
 import com.hannesdorfmann.adapterdelegates2.ListDelegationAdapter
-import com.hannesdorfmann.mosby3.conductor.sample.R
 import com.hannesdorfmann.mosby3.conductor.sample.create.contactspicker.ContactAdapterDelegate
 import com.hannesdorfmann.mosby3.conductor.sample.create.contactspicker.ContactsPickerController
 import com.hannesdorfmann.mosby3.conductor.sample.create.datetimepicker.DateTimePickerController
@@ -30,7 +29,6 @@ import com.hannesdorfmann.mosby3.conductor.sample.R.layout
 import com.hannesdorfmann.mosby3.conductor.sample.dagger.TaskCreationComponent
 import com.hannesdorfmann.mosby3.conductor.sample.daggerComponent
 import com.hannesdorfmann.mosby3.conductor.sample.model.contacts.Contact
-import com.hannesdorfmann.mosby3.conductor.sample.model.tasks.TaskBuilder
 import com.hannesdorfmann.mosby3.conductor.sample.model.tasks.TaskBuilder.TaskSnapshot
 import com.hannesdorfmann.mosby3.conductor.sample.navigation.changehandlers.ContactsPickerChaneHandler
 import com.hannesdorfmann.mosby3.conductor.sample.navigation.changehandlers.DateTimePickerCircularRevealChangeHandler
@@ -88,7 +86,7 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
     showForm()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedViewState: Bundle?): View {
     val view = inflater.inflate(layout.controller_create_task, container, false)
 
     title = view.findViewById<EditText>(id.title) as EditText
@@ -99,7 +97,7 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
 
     title.textChanges().skip(1).map { it.toString() }.subscribe { presenter.setTaskTitle(it) }
     description.textChanges().skip(
-        1).map { it.toString() }.subscribe { presenter.setTaskDescription(it) }
+            1).map { it.toString() }.subscribe { presenter.setTaskDescription(it) }
     date.setOnClickListener {
 
       var popHandler : ControllerChangeHandler? = null
@@ -113,9 +111,9 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
       }
 
       router.pushController(
-          RouterTransaction.with(DateTimePickerController())
-              .popChangeHandler(popHandler)
-              .pushChangeHandler(pushHandler)
+              RouterTransaction.with(DateTimePickerController())
+                      .popChangeHandler(popHandler)
+                      .pushChangeHandler(pushHandler)
       )
     }
 
@@ -125,7 +123,7 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
       val childRouter = getChildRouter(personPickerContainer, null)
       if (!childRouter.hasRootController()) {
         childRouter.setRoot(RouterTransaction.with(ContactsPickerController())
-            .popChangeHandler(ContactsPickerChaneHandler())
+                .popChangeHandler(ContactsPickerChaneHandler())
         )
         childRouter.setPopsLastView(true)
       }
@@ -139,7 +137,7 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
 
 
     val manager = AdapterDelegatesManager<List<Contact>>()
-        .addDelegate(ContactAdapterDelegate(activity!!.layoutInflater, {}))
+            .addDelegate(ContactAdapterDelegate(activity!!.layoutInflater, {}))
 
     selectedPersonAdapter = ListDelegationAdapter(manager)
     selectedPersonRecyclerView.adapter = selectedPersonAdapter
@@ -147,9 +145,9 @@ class CreateTaskController : CreateTaskView, MvpViewStateController<CreateTaskVi
 
 
     val imageManager = AdapterDelegatesManager<List<Uri>>()
-        .addDelegate(
-            ImageAdapterDelegate(daggerComponent.picasso(), activity!!.layoutInflater,
-                { showImageDetails(it) }))
+            .addDelegate(
+                    ImageAdapterDelegate(daggerComponent.picasso(), activity!!.layoutInflater,
+                            { showImageDetails(it) }))
     selectedImagesAdapter = ListDelegationAdapter(imageManager)
     imagesRecyclerView.adapter = selectedImagesAdapter
 

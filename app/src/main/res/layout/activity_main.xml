@@ -5,5 +5,5 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hannesdorfmann.mosby.conductor.sample.com.hannesdorfmann.mosby3.conductor.sample.MainActivity"
+    tools:context=".MainActivity"
     />

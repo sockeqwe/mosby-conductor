@@ -1,6 +1,6 @@
 package com.hannesdorfmann.mosby3;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import com.bluelinelabs.conductor.Controller;
@@ -23,7 +23,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpView;
  * @since 3.0
  */
 public class MviConductorLifecycleListener<V extends MvpView, P extends MviPresenter<V, ?>>
-    extends Controller.LifecycleListener {
+    implements Controller.LifecycleListener {
 
   private static final boolean DEBUG = false;
   private static final String DEBUG_TAG = "MviLifecycleListener";

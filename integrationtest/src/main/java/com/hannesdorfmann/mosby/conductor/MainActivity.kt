@@ -1,8 +1,8 @@
 package com.hannesdorfmann.mosby.conductor
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction

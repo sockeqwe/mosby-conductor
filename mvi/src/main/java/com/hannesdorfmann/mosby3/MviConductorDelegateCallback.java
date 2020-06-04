@@ -17,7 +17,7 @@
 
 package com.hannesdorfmann.mosby3;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.hannesdorfmann.mosby3.mvi.MviPresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpView;
 

@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply from: '../maven-push.gradle'
-apply from: '../findbugs.gradle'
 
 android {
 
@@ -27,15 +26,15 @@ android {
 }
 
 dependencies {
-  testCompile "junit:junit:$junit"
-  testCompile "org.mockito:mockito-all:$mockito"
-  testCompile "org.powermock:powermock-mockito-release-full:$powermock"
-  testCompile "org.powermock:powermock-api-mockito:$powermock"
-  testCompile "org.powermock:powermock-module-junit4:$powermock"
+  testImplementation "junit:junit:$junit"
+  testImplementation "org.mockito:mockito-all:$mockito"
+  testImplementation "org.powermock:powermock-mockito-release-full:$powermock"
+  testImplementation "org.powermock:powermock-api-mockito:$powermock"
+  testImplementation "org.powermock:powermock-module-junit4:$powermock"
   
-  compile "com.android.support:appcompat-v7:$supportLib"
+  implementation "com.android.support:appcompat-v7:$supportLib"
 
-  compile "com.hannesdorfmann.mosby3:mvp:$mosby"
-  compile "com.bluelinelabs:conductor:$conductor"
-  compile "com.hannesdorfmann.mosby3:mvp-lce:$mosby"
+  implementation "com.hannesdorfmann.mosby3:mvp:$mosby"
+  implementation "com.bluelinelabs:conductor:$conductor"
+  implementation "com.hannesdorfmann.mosby3:mvp-lce:$mosby"
 }

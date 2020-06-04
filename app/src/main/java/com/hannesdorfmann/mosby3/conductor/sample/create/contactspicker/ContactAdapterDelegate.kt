@@ -1,14 +1,11 @@
 package com.hannesdorfmann.mosby3.conductor.sample.create.contactspicker
 
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import kotterknife.bindView
+import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates2.AbsListItemAdapterDelegate
-import com.hannesdorfmann.mosby3.conductor.sample.R
 import com.hannesdorfmann.mosby3.conductor.sample.model.contacts.Contact
 import com.hannesdorfmann.mosby3.conductor.sample.R.id
 import com.hannesdorfmann.mosby3.conductor.sample.R.layout
@@ -31,7 +28,7 @@ class ContactAdapterDelegate(private val inflater: LayoutInflater, private val s
     viewHolder.name.text = item.name
   }
 
-  inner class ContactViewHolder(v: View) : ViewHolder(v) {
+  inner class ContactViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
     lateinit var contact: Contact
     val name: TextView

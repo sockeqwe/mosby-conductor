@@ -1,8 +1,9 @@
 package com.hannesdorfmann.mosby3.conductor.viewstate.delegate;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
+
 import com.bluelinelabs.conductor.Controller;
 import com.hannesdorfmann.mosby3.conductor.viewstate.MvpViewStateController;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;

@@ -17,7 +17,7 @@ class CreateTaskPresenter @Inject constructor(private val dao: TaskDao, private 
 
   override fun attachView(view: CreateTaskView) {
     super.attachView(view)
-    taskBuilderSubscription = taskBuilder.observable.subscribe({ getView()?.setTaskSnapshot(it) })
+    taskBuilderSubscription = taskBuilder.observable.subscribe { getView()?.setTaskSnapshot(it) }
   }
 
   override fun detachView(retainInstance: Boolean) {

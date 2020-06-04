@@ -10,7 +10,7 @@ import com.hannesdorfmann.mosby3.conductor.sample.model.tasks.TaskBuilder
  *
  * @author Hannes Dorfmann
  */
-class TaskBuilderLifecycleListener(private val taskBuilder: TaskBuilder) : LifecycleListener() {
+class TaskBuilderLifecycleListener(private val taskBuilder: TaskBuilder) : LifecycleListener {
 
   override fun onSaveInstanceState(controller: Controller, outState: Bundle) {
     taskBuilder.saveInstanceState(outState)

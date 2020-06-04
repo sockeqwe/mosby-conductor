@@ -7,7 +7,7 @@
     android:orientation="vertical"
     >
 
-  <android.support.v7.widget.Toolbar
+  <androidx.appcompat.widget.Toolbar
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       app:title="@string/app_name"
@@ -27,13 +27,13 @@
 
     <include layout="@layout/error_view"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

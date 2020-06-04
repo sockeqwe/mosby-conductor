@@ -1,7 +1,6 @@
 package com.hannesdorfmann.mosby3.conductor.sample.tasks
 
 import android.util.Log
-import com.hannesdorfmann.mosby3.conductor.sample.R
 import com.hannesdorfmann.mosby3.conductor.sample.model.tasks.TaskDao
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 import com.hannesdorfmann.mosby3.conductor.sample.R.string

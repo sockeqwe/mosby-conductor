@@ -19,7 +19,7 @@
       />
 
 
-  <android.support.v7.widget.CardView
+  <androidx.cardview.widget.CardView
       android:id="@+id/contentView"
       android:layout_width="match_parent"
       android:layout_height="160dp"
@@ -31,11 +31,11 @@
       app:cardElevation="12dp"
       >
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-  </android.support.v7.widget.CardView>
+  </androidx.cardview.widget.CardView>
 
 </FrameLayout>

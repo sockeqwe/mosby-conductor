@@ -1,11 +1,10 @@
 package com.hannesdorfmann.mosby3.mvp.conductor.delegate;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import com.bluelinelabs.conductor.Controller;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpView;
-import com.hannesdorfmann.mosby3.mvp.conductor.MvpController;
 import com.hannesdorfmann.mosby3.mvp.conductor.MvpController;
 
 /**
@@ -24,7 +23,7 @@ import com.hannesdorfmann.mosby3.mvp.conductor.MvpController;
  * @since 1.0
  */
 public class MvpConductorLifecycleListener<V extends MvpView, P extends MvpPresenter<V>>
-    extends Controller.LifecycleListener {
+    implements Controller.LifecycleListener {
 
   protected final MvpConductorDelegateCallback<V, P> callback;
 
@@ -75,7 +74,6 @@ public class MvpConductorLifecycleListener<V extends MvpView, P extends MvpPrese
 
   @Override
   public void postDestroy(@NonNull Controller controller) {
-    super.postDestroy(controller);
     P presenter = getCallback().getPresenter();
     if (presenter == null) {
       throw new NullPointerException(

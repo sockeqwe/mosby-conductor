@@ -1,15 +1,13 @@
 package com.hannesdorfmann.mosby3.conductor.sample.create
 
 import android.net.Uri
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import kotterknife.bindView
 import com.hannesdorfmann.adapterdelegates2.AbsListItemAdapterDelegate
-import com.hannesdorfmann.mosby3.conductor.sample.R
 import com.hannesdorfmann.mosby3.conductor.sample.R.color
 import com.hannesdorfmann.mosby3.conductor.sample.R.id
 import com.hannesdorfmann.mosby3.conductor.sample.R.layout
@@ -39,7 +37,7 @@ class ImageAdapterDelegate(private val picasso: Picasso, private val layoutInfla
   override fun onCreateViewHolder(parent: ViewGroup): ImageViewHolder
       = ImageViewHolder(layoutInflater.inflate(layout.item_image, parent, false), clickListener)
 
-  class ImageViewHolder(view: View, private val clickListener: (Uri) -> Unit) : ViewHolder(
+  class ImageViewHolder(view: View, private val clickListener: (Uri) -> Unit) : RecyclerView.ViewHolder(
       view) {
     val imageView by bindView<ImageView>(id.imagePreview)
     lateinit var uri: Uri

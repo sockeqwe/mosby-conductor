@@ -1,6 +1,6 @@
 package com.hannesdorfmann.mosby3.conductor.sample.tasks
 
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 
 /**
  * Common "PresentationModel" interface for elements that can be displayed in [TaskListItem]
