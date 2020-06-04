@@ -9,7 +9,7 @@
     >
 
 
-  <android.support.v7.widget.Toolbar
+  <androidx.appcompat.widget.Toolbar
       android:id="@+id/toolbar"
       android:layout_width="match_parent"
       android:layout_height="@dimen/create_task_toolbar_height"
@@ -31,9 +31,9 @@
         android:textColorHint="@android:color/white"
         />
 
-  </android.support.v7.widget.Toolbar>
+  </androidx.appcompat.widget.Toolbar>
 
-  <android.support.v4.widget.NestedScrollView
+  <androidx.core.widget.NestedScrollView
       android:id="@+id/scrollView"
       android:layout_width="match_parent"
       android:layout_height="0dp"
@@ -107,7 +107,7 @@
           />
 
 
-      <android.support.v7.widget.RecyclerView
+      <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/personRecyclerView"
           android:layout_width="match_parent"
           android:layout_height="160dp"
@@ -144,7 +144,7 @@
 
       </LinearLayout>
 
-      <android.support.v7.widget.RecyclerView
+      <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/imageRecyclerView"
           android:layout_width="match_parent"
           android:layout_height="160dp"
@@ -152,6 +152,6 @@
           />
 
     </LinearLayout>
-  </android.support.v4.widget.NestedScrollView>
+  </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

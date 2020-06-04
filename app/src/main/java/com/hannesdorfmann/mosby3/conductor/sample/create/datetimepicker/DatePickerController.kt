@@ -1,5 +1,6 @@
 package com.hannesdorfmann.mosby3.conductor.sample.create.datetimepicker
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,16 +30,15 @@ class DatePickerController() : Controller() {
         "The passed DatePickedListener must extend from Controller and implement DatePickedListener")
   }
 
-
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedViewState: Bundle?): View {
     val view = inflater.inflate(layout.controller_date_picker, container, false)
     val datePicker = view.findViewById<DatePicker>(id.datePicker) as DatePicker
     val now = ZonedDateTime.now()
     datePicker.minDate = now.toEpochSecond() * 1000L
 
-    datePicker.init(now.year, now.monthValue, now.dayOfMonth, { calendarView, year, month, day ->
+    datePicker.init(now.year, now.monthValue, now.dayOfMonth) { calendarView, year, month, day ->
       (targetController as DatePickedListner).onDatePicked(year, month, day)
-    })
+    }
 
     return view
   }

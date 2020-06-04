@@ -1,7 +1,7 @@
 package com.hannesdorfmann.mosby3.mvp.conductor.lce;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;

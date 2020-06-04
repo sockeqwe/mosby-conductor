@@ -10,8 +10,8 @@ import dagger.Component
  *
  * @author Hannes Dorfmann
  */
-@Component(modules = arrayOf(TaskCreationModule::class),
-    dependencies = arrayOf(ControllerComponent::class))
+@Component(modules = [TaskCreationModule::class],
+    dependencies = [ControllerComponent::class])
 @TaskCreationScope
 interface TaskCreationComponent {
 

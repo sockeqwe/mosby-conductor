@@ -6,8 +6,8 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
+import androidx.annotation.NonNull;
+import android.util.Pair;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -19,7 +19,7 @@ import com.hannesdorfmann.mosby3.conductor.sample.R;
 /**
  * An {@link AnimatorChangeHandler} that will perform a circular reveal
  */
-@TargetApi(Build.VERSION_CODES.LOLLIPOP) public class CreateTaskCircularRevealChangeHandler
+@TargetApi(Build.VERSION_CODES.LOLLIPOP)  public class CreateTaskCircularRevealChangeHandler
     extends AnimatorChangeHandler {
 
   public CreateTaskCircularRevealChangeHandler() {

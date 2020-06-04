@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.RouterTransaction
-import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 import com.hannesdorfmann.mosby3.mvp.MvpView
 import com.hannesdorfmann.mosby3.mvp.conductor.MvpController
 
@@ -31,8 +29,7 @@ class MvpTestController(bundle: Bundle) : MvpController<MvpView, MvpTestPresente
     private var nextControllerButton: Button? = null
 
     override fun createPresenter(): MvpTestPresenter = MvpTestPresenter(id)
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedViewState: Bundle?): View {
         Log.d(TAG, "Controller$id.onCreateView()")
         val view = inflater.inflate(R.layout.controller, container, false)
         view.findViewById<TextView>(R.id.text).text = "Controller $id"
@@ -43,6 +40,7 @@ class MvpTestController(bundle: Bundle) : MvpController<MvpView, MvpTestPresente
         }
         return view
     }
+
 
     override fun onDestroyView(view: View) {
         super.onDestroyView(view)

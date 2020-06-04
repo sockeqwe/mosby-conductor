@@ -1,7 +1,7 @@
 package com.hannesdorfmann.mosby3.mvp.conductor;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.bluelinelabs.conductor.Controller;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpView;

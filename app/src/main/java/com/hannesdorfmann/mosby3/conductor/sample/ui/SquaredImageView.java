@@ -2,10 +2,9 @@ package com.hannesdorfmann.mosby3.conductor.sample.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 /** An image view which always remains square with respect to its width. */
-public final class SquaredImageView extends ImageView {
+public final class SquaredImageView extends androidx.appcompat.widget.AppCompatImageView {
   public SquaredImageView(Context context) {
     super(context);
   }
